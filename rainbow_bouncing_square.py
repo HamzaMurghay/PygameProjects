@@ -14,7 +14,7 @@ b_square_speedy = 5
 b_square_directionx, b_square_directiony = 1, 1
 
 
-bounce_sound = pg.mixer.Sound('sounds/bounce.mp3')
+bounce_sound = pg.mixer.Sound('venv/sounds/bounce.mp3')
 
 state = 0
 r = 255
@@ -29,10 +29,10 @@ pg.display.update()
 clock = pg.time.Clock()
 
 
-def draw_move_bounce(r, g, b):
+def draw_move_bounce(red, green, blue):
     global b_square_directionx, b_square_directiony
 
-    pg.draw.rect(screen, (r, g, b), b_square_rectangle)
+    pg.draw.rect(screen, (red, green, blue), b_square_rectangle)
     pg.draw.rect(screen, 'Black', b_square_rectangle, 1, 1)
 
     b_square_rectangle.left += (b_square_speedx * b_square_directionx)
@@ -53,34 +53,34 @@ def draw_move_bounce(r, g, b):
 def rainbow_rgb_code_generator():
     global r, g, b, state
 
-    if (state == 0):
+    if state == 0:
         g += 5
-        if (g == 255):
+        if g == 255:
             state = 1
 
-    if (state == 1):
+    if state == 1:
         r -= 5
-        if (r == 0):
+        if r == 0:
             state = 2
 
-    if (state == 2):
+    if state == 2:
         b += 5
-        if (b == 255):
+        if b == 255:
             state = 3
 
-    if (state == 3):
+    if state == 3:
         g -= 5
-        if (g == 0):
+        if g == 0:
             state = 4
 
-    if (state == 4):
+    if state == 4:
         r += 5
-        if (r == 255):
+        if r == 255:
             state = 5
 
-    if (state == 5):
+    if state == 5:
         b -= 5
-        if (b == 0):
+        if b == 0:
             state = 0
 
 
