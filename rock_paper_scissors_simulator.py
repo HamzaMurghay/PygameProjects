@@ -17,12 +17,14 @@ class Rock:
 
 class Paper:
     paper_surface = pg.image.load('venv/graphics/paperT.png').convert_alpha()
+    rectangle = None
     speed_x = speed_y = 1
     direction_x = direction_y = 1
 
 
 class Scissor:
     scissor_surface = pg.image.load('venv/graphics/scissorsT.png').convert_alpha()
+    rectangle = None
     speed_x = speed_y = 1
     direction_x = direction_y = 1
 
@@ -64,8 +66,7 @@ def place_all_objects():
 pauseb_surface = pg.image.load('venv/graphics/pausebutton.jpg').convert_alpha()
 pause_button_rectangle = pauseb_surface.get_rect(topleft=(16, 7))
 
-current_play_state_surface = playb_surface = pg.image.load(
-    'venv/graphics/playbutton.jpg').convert_alpha()  # we define two variables , play_button and its surface and rectangle, along with current_play_state and its surface and rectangle, play button contains the play button surface image and its rectangle. it is constant, however  current_play_state will keep alternating and changing between being equal to the play button and the pause button, but at the start, we define it as equal to the play button, which will change later on
+current_play_state_surface = playb_surface = pg.image.load('venv/graphics/playbutton.jpg').convert_alpha()  # we define two variables , play_button and its surface and rectangle, along with current_play_state and its surface and rectangle, play button contains the play button surface image and its rectangle. it is constant, however  current_play_state will keep alternating and changing between being equal to the play button and the pause button, but at the start, we define it as equal to the play button, which will change later on
 current_play_state_rectangle = play_button_rectangle = playb_surface.get_rect(topleft=(15, 7))
 
 resetb_surface = pg.image.load('venv/graphics/reset button.png').convert_alpha()
@@ -74,8 +75,29 @@ reset_button_rectangle = resetb_surface.get_rect(topleft=(17, 45))
 fast_forward_button_surface = pg.image.load('venv/graphics/fastForwardsmall.png')
 fast_forward_button_rectangle = fast_forward_button_surface.get_rect(topleft=(525, 45))
 
-avoid_algo_toggle_surface = pg.image.load('venv/graphics/ToggleON.png')
+avoid_algo_toggle_ON = pg.image.load('venv/graphics/ToggleON.png')
+avoid_algo_toggle_transition1 = pg.image.load('venv/graphics/ToggleTransition1.png')
+avoid_algo_toggle_transition2 = pg.image.load('venv/graphics/ToggleTransition2.png')
+avoid_algo_toggle_OFF = pg.image.load('venv/graphics/ToggleOFF.png')
+
+avoid_algo_toggle_transition_states = [avoid_algo_toggle_ON, avoid_algo_toggle_transition1,
+                                       avoid_algo_toggle_transition2, avoid_algo_toggle_OFF]
+transition_index = 0
+
+avoid_algo_toggle_surface = avoid_algo_toggle_transition_states[transition_index]
 avoid_algo_toggle_rectangle = avoid_algo_toggle_surface.get_rect(topleft=(545, 13))
+
+
+def adjust_toggle_rectangle_position():
+    if int(transition_index) == 0:
+        avoid_algo_toggle_rectangle.topleft = (545, 13)
+    elif int(transition_index) == 1:
+        avoid_algo_toggle_rectangle.topleft = (547, 15)
+    elif int(transition_index) == 2:
+        avoid_algo_toggle_rectangle.topleft = (547, 15)
+    elif int(transition_index) == 3:
+        avoid_algo_toggle_rectangle.topleft = (548, 16)
+
 
 do_play = 0
 
@@ -88,11 +110,15 @@ winner = None
 
 rock_win_num, paper_win_num, scissor_win_num = 0, 0, 0  # denotes number of wins for each class
 
-keep_avoiding_algo_on = 1
-
 tick_rate = 60
 
 fast_forward = False
+
+keep_avoiding_algo_on = 1
+
+current_time = 0
+toggle_press_time = 0
+toggle_state = False
 
 
 def draw_text_and_borders():
@@ -236,6 +262,7 @@ def bounce_if_touch_border(obj):
 
 while True:
     mouse = pg.mouse
+    current_time = pg.time.get_ticks()
 
     if rock_num == 99 and do_play == 1:
         rock_win_num += 1
@@ -284,12 +311,13 @@ while True:
             else:
                 do_play = 0
 
-        # if (event.type == pg.MOUSEBUTTONUP and avoid_algo_toggle_rectangle.collidepoint(mouse.get_pos())) or
-        #   (event.type == pg.KEYDOWN and event.key == pg.K_t):
+        if (event.type == pg.MOUSEBUTTONUP and avoid_algo_toggle_rectangle.collidepoint(mouse.get_pos())) or (event.type == pg.KEYDOWN and event.key == pg.K_t):
+            toggle_press_time = pg.time.get_ticks()
+            toggle_state = True
 
-        if event.type == pg.KEYDOWN and event.key == pg.K_f:
+        if event.type == pg.KEYDOWN and event.key == pg.K_f or (event.type == pg.MOUSEBUTTONDOWN and fast_forward_button_rectangle.collidepoint(mouse.get_pos())):
             fast_forward = True
-        if event.type == pg.KEYUP and event.key == pg.K_f:
+        if event.type == pg.KEYUP and event.key == pg.K_f or (event.type == pg.MOUSEBUTTONUP and fast_forward_button_rectangle.collidepoint(mouse.get_pos())):
             fast_forward = False
 
     screen.fill('white')
@@ -297,13 +325,35 @@ while True:
     screen.blit(current_play_state_surface, current_play_state_rectangle)
     screen.blit(resetb_surface, reset_button_rectangle)
 
+    if current_time - toggle_press_time < 1000 and toggle_state:
+        if keep_avoiding_algo_on:
+
+            if transition_index <= 3.3:
+                avoid_algo_toggle_surface = avoid_algo_toggle_transition_states[int(transition_index)]
+                adjust_toggle_rectangle_position()
+                transition_index += 0.3
+            else:
+                keep_avoiding_algo_on = 0
+                toggle_state = False
+
+        else:
+
+            if transition_index >= 0:
+                avoid_algo_toggle_surface = avoid_algo_toggle_transition_states[int(transition_index)]
+                adjust_toggle_rectangle_position()
+                transition_index -= 0.3
+            else:
+                keep_avoiding_algo_on = 1
+                transition_index = 0
+                toggle_state = False
+
     screen.blit(avoid_algo_toggle_surface, avoid_algo_toggle_rectangle)
     screen.blit(fast_forward_button_surface, fast_forward_button_rectangle)
 
     draw_text_and_borders()
 
-    game_border = pg.draw.rect(screen, 'Black', pg.Rect(0, 80, 600, 520),
-                               2)  # Draws black border which represents maximum limit for object travel
+    game_border = pg.draw.rect(screen, 'Black', pg.Rect(0, 80, 600, 520), 2)
+    # Draws black border which represents maximum limit for object travel
 
     for scissor in scissor_list:
         screen.blit(scissor.scissor_surface, scissor.rectangle)
@@ -320,7 +370,9 @@ while True:
             paper_num = len(paper_list)
 
         if do_play == 1:
-            avoid_closest_undefeatable_enemy(scissor, rock_list, rock_num)
+
+            if keep_avoiding_algo_on:
+                avoid_closest_undefeatable_enemy(scissor, rock_list, rock_num)
             chase_closest_defeatable_enemy(scissor, paper_list, paper_num)
 
         # bounce_if_touch_border(scissor)
@@ -339,7 +391,9 @@ while True:
             scissor_num = len(scissor_list)
 
         if do_play == 1:
-            avoid_closest_undefeatable_enemy(rock, paper_list, paper_num)
+
+            if keep_avoiding_algo_on:
+                avoid_closest_undefeatable_enemy(rock, paper_list, paper_num)
             chase_closest_defeatable_enemy(rock, scissor_list, scissor_num)
 
         # bounce_if_touch_border(rock)
@@ -357,7 +411,8 @@ while True:
             rock_num = len(rock_list)
 
         if do_play == 1:
-            avoid_closest_undefeatable_enemy(paper, scissor_list, scissor_num)
+            if keep_avoiding_algo_on:
+                avoid_closest_undefeatable_enemy(paper, scissor_list, scissor_num)
             chase_closest_defeatable_enemy(paper, rock_list, rock_num)
 
         # bounce_if_touch_border(paper)
