@@ -11,9 +11,9 @@ Points to Note: (For Rock Paper Scissors Simulator)
 
 4) The Three main text boxes at the center-top of the screen show the number of rocks, papers and scissors respectively
 
-5) The implementation to turn off the enemy avoiding algorithm will soon be added but as of yet is not available
+5) You can turn on and off the 'Avoiding Algorithm' as you please, by clicking the toggle button via mouse on the window OR pressing 't' via keyboard
 
-6) You can increase the speed of the program/fast forward through it by pressing 'f', the implementation to fast forward by clicking the fast forward button will soon be added
+6) You can increase the speed of the program/fast forward through it by pressing 'f' OR continuosly pressing the fast forward button on the window
    
 
 Points to Note: (For Rainbow Bouncing Square)
