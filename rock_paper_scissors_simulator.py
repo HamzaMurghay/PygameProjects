@@ -10,20 +10,20 @@ text_smallerfont = pg.font.Font('fonts/primeform_pro/PrimeformProDemo-Light.otf'
 
 
 class Rock:
-    rock_surface = pg.image.load('graphics/rockT.png').convert_alpha()
+    rock_surface = pg.image.load('graphics/Rock Paper Scissors graphics/rockT.png').convert_alpha()
     speed_x = speed_y = 1
     direction_x = direction_y = 1
 
 
 class Paper:
-    paper_surface = pg.image.load('graphics/paperT.png').convert_alpha()
+    paper_surface = pg.image.load('graphics/Rock Paper Scissors graphics/paperT.png').convert_alpha()
     rectangle = None
     speed_x = speed_y = 1
     direction_x = direction_y = 1
 
 
 class Scissor:
-    scissor_surface = pg.image.load('graphics/scissorsT.png').convert_alpha()
+    scissor_surface = pg.image.load('graphics/Rock Paper Scissors graphics/scissorsT.png').convert_alpha()
     rectangle = None
     speed_x = speed_y = 1
     direction_x = direction_y = 1
@@ -63,22 +63,22 @@ def place_all_objects():
                 topleft=(random.randint(4, 565), random.randint(82, 572)))
 
 
-pauseb_surface = pg.image.load('graphics/pausebutton.jpg').convert_alpha()
+pauseb_surface = pg.image.load('graphics/Rock Paper Scissors graphics/pausebutton.jpg').convert_alpha()
 pause_button_rectangle = pauseb_surface.get_rect(topleft=(16, 7))
 
-current_play_state_surface = playb_surface = pg.image.load('graphics/playbutton.jpg').convert_alpha()  # we define two variables , play_button and its surface and rectangle, along with current_play_state and its surface and rectangle, play button contains the play button surface image and its rectangle. it is constant, however  current_play_state will keep alternating and changing between being equal to the play button and the pause button, but at the start, we define it as equal to the play button, which will change later on
+current_play_state_surface = playb_surface = pg.image.load('graphics/Rock Paper Scissors graphics/playbutton.jpg').convert_alpha()  # we define two variables , play_button and its surface and rectangle, along with current_play_state and its surface and rectangle, play button contains the play button surface image and its rectangle. it is constant, however  current_play_state will keep alternating and changing between being equal to the play button and the pause button, but at the start, we define it as equal to the play button, which will change later on
 current_play_state_rectangle = play_button_rectangle = playb_surface.get_rect(topleft=(15, 7))
 
-resetb_surface = pg.image.load('graphics/reset button.png').convert_alpha()
+resetb_surface = pg.image.load('graphics/Rock Paper Scissors graphics/reset button.png').convert_alpha()
 reset_button_rectangle = resetb_surface.get_rect(topleft=(17, 45))
 
-fast_forward_button_surface = pg.image.load('graphics/fastForwardsmall.png')
+fast_forward_button_surface = pg.image.load('graphics/Rock Paper Scissors graphics/fastForwardsmall.png')
 fast_forward_button_rectangle = fast_forward_button_surface.get_rect(topleft=(525, 45))
 
-avoid_algo_toggle_ON = pg.image.load('graphics/ToggleON.png')
-avoid_algo_toggle_transition1 = pg.image.load('graphics/ToggleTransition1.png')
-avoid_algo_toggle_transition2 = pg.image.load('graphics/ToggleTransition2.png')
-avoid_algo_toggle_OFF = pg.image.load('graphics/ToggleOFF.png')
+avoid_algo_toggle_ON = pg.image.load('graphics/Rock Paper Scissors graphics/ToggleON.png')
+avoid_algo_toggle_transition1 = pg.image.load('graphics/Rock Paper Scissors graphics/ToggleTransition1.png')
+avoid_algo_toggle_transition2 = pg.image.load('graphics/Rock Paper Scissors graphics/ToggleTransition2.png')
+avoid_algo_toggle_OFF = pg.image.load('graphics/Rock Paper Scissors graphics/ToggleOFF.png')
 
 avoid_algo_toggle_transition_states = [avoid_algo_toggle_ON, avoid_algo_toggle_transition1,
                                        avoid_algo_toggle_transition2, avoid_algo_toggle_OFF]
@@ -91,10 +91,8 @@ avoid_algo_toggle_rectangle = avoid_algo_toggle_surface.get_rect(topleft=(545, 1
 def adjust_toggle_rectangle_position():
     if int(transition_index) == 0:
         avoid_algo_toggle_rectangle.topleft = (545, 13)
-    elif int(transition_index) == 1:
-        avoid_algo_toggle_rectangle.topleft = (547, 15)
-    elif int(transition_index) == 2:
-        avoid_algo_toggle_rectangle.topleft = (547, 15)
+    elif int(transition_index) == 1 or int(transition_index) == 2:
+        avoid_algo_toggle_rectangle.topleft = (547, 16)
     elif int(transition_index) == 3:
         avoid_algo_toggle_rectangle.topleft = (548, 16)
 
@@ -328,10 +326,10 @@ while True:
     if current_time - toggle_press_time < 1000 and toggle_state:
         if keep_avoiding_algo_on:
 
-            if transition_index <= 3.3:
+            if transition_index <= 3.0:
                 avoid_algo_toggle_surface = avoid_algo_toggle_transition_states[int(transition_index)]
                 adjust_toggle_rectangle_position()
-                transition_index += 0.3
+                transition_index += 0.5
             else:
                 keep_avoiding_algo_on = 0
                 toggle_state = False
@@ -341,7 +339,7 @@ while True:
             if transition_index >= 0:
                 avoid_algo_toggle_surface = avoid_algo_toggle_transition_states[int(transition_index)]
                 adjust_toggle_rectangle_position()
-                transition_index -= 0.3
+                transition_index -= 0.5
             else:
                 keep_avoiding_algo_on = 1
                 transition_index = 0
@@ -426,13 +424,3 @@ while True:
 
     pg.display.update()
     clock.tick(tick_rate)
-
-# def on_collision_change_class(chaser, chaser_list, chaser_class,chased_list):  # This is there to show an idea that I had to reduce the code but the implementation didn't work for some reason that I haven't figured out yet, if I figure it out this will be implemented and this comment removed
-#     for chased in chased_list:
-#         if chaser.rectangle.colliderect(chased.rectangle):
-#             position_temporary = chased.rectangle.topleft
-#             chased_list.remove(chased)
-#             chased = chaser_class
-#             chased.rectangle = chased.surface.get_rect(topleft = position_temporary)
-#             chaser_list.append(chased)
-#             pg.time.delay(2)
