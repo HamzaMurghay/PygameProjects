@@ -14,7 +14,7 @@ b_square_speedy = 5
 b_square_directionx, b_square_directiony = 1, 1
 
 
-bounce_sound = pg.mixer.Sound('sounds/bounce.mp3')
+bounce_sound = pg.mixer.Sound('sounds/Rainbow Bouncing Square Sounds/bounce.mp3')
 
 state = 0
 r = 255
@@ -30,7 +30,7 @@ clock = pg.time.Clock()
 
 
 def draw_move_bounce(red, green, blue):
-    global b_square_directionx, b_square_directiony
+    global b_square_directionx, b_square_directiony, b_square_speedx, b_square_speedy
 
     pg.draw.rect(screen, (red, green, blue), b_square_rectangle)
     pg.draw.rect(screen, 'Black', b_square_rectangle, 1, 1)
@@ -45,6 +45,7 @@ def draw_move_bounce(red, green, blue):
     if b_square_rectangle.bottom > 600 or b_square_rectangle.top < 0:
         bounce_sound.play()
         b_square_directiony *= -1
+
 
     pg.display.update()
     clock.tick(60)
