@@ -9,13 +9,15 @@ pg.init()
 textbox_font = pg.font.Font("fonts/garet/Garet-Book.ttf", 16)
 name_font = pg.font.Font("fonts/garet/Garet-Heavy.ttf", 18)
 
+level_description_title_font = pg.font.Font('fonts/garet/Garet-Heavy.ttf', 34)
+level_description_body_font = pg.font.Font('fonts/garet/Garet-Book.ttf', 24)
+
 line1 = textbox_font.render("", True, 'black')
 text_lines = [line1]
 current_line_rect = text_lines[0].get_rect(topleft=(5, 500))
 
 namebar_text = name_font.render("??????", True, 'White')
 namebar_text2 = name_font.render("", True, 'White')
-
 
 letter_index = 0
 ongoing_print = True
@@ -51,7 +53,6 @@ def write_in_textbox(string: str):
 
 
 def go_to_next_line():
-
     global text_lines, line1, dialouge_index, current_line_rect, ongoing_print, lines_done
     text_lines.clear()
     text_lines.append(line1)
@@ -70,8 +71,15 @@ ee_shocked2 = pg.image.load('graphics/8-Bit Pixel Game/expert_explorer_shocked_t
 ee_angry = pg.image.load('graphics/8-Bit Pixel Game/expert_explorer_angry_trimmed.png').convert_alpha()
 
 level_select_menu = pg.image.load('graphics/8-Bit Pixel Game/level select menu.png').convert_alpha()
-lock_chains = pg.image.load('graphics/8-Bit Pixel Game/chains_trimmed.png').convert_alpha()
-lock_chains_inverted = pg.image.load('graphics/8-Bit Pixel Game/chains_inverted_trimmed.png').convert_alpha()
+level_description = pg.image.load('graphics/8-Bit Pixel Game/level_description.png')
+
+level_lock_chains = pg.image.load('graphics/8-Bit Pixel Game/chains_trimmed.png').convert_alpha()
+level_lock_chains_inverted = pg.image.load('graphics/8-Bit Pixel Game/chains_inverted_trimmed.png').convert_alpha()
+level_start_button = pg.image.load('graphics/8-Bit Pixel Game/start_button_trimmed.png').convert_alpha()
+level_start_button_rect = level_start_button.get_rect(topleft=(233, 360))
+
+back_button = pg.image.load('graphics/8-Bit Pixel Game/back_arrow.png').convert_alpha()
+back_button_rect = back_button.get_rect(topleft=(140, 134))
 
 chain_sound = pg.mixer.Sound('sounds/8-Bit Pixel Game/metal_chain_sound.mp3')
 
@@ -134,7 +142,10 @@ personal_thoughts = ["(Okayyyyy, that was...interesting. Anyway,so let's think: 
 dialouge_index = 0
 intro_done = False
 personal_thoughts_done = False
-level1_done, level1_locked = False, False
+show_level_select_menu = False
+show_level_description = False
+
+level1_done = False
 level2_done, level2_locked = False, True
 level3_done, level3_locked = False, True
 level4_done, level4_locked = False, True
@@ -174,9 +185,14 @@ def show_level_status(current_level_status):
     screen.blit(text_lines[0], (current_line_rect.topleft[0] + 30, current_line_rect.topleft[1]))
 
 
+def display_base_level_description():
+    screen.blit(level_description, (110, 75))
+    screen.blit(back_button, back_button_rect)
+    screen.blit(level_start_button, level_start_button_rect)
+
+
 time_since_clicked = 0
 while True:
-    mouse = pg.mouse
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -197,42 +213,66 @@ while True:
                     go_to_next_line()
                 else:
                     personal_thoughts_done = True
+                    show_level_select_menu = True
                     ongoing_print = False
                     dialouge_index = -1
                     go_to_next_line()
 
-        if (l1_circle.collidepoint(mouse.get_pos()) or l2_circle.collidepoint(mouse.get_pos())
-            or l3_circle.collidepoint(mouse.get_pos()) or l4_circle.collidepoint(mouse.get_pos())
-                or l5_circle.collidepoint(mouse.get_pos())) and personal_thoughts_done:
+        if ((l1_circle.collidepoint(pg.mouse.get_pos()) or l2_circle.collidepoint(pg.mouse.get_pos())
+             or l3_circle.collidepoint(pg.mouse.get_pos()) or l4_circle.collidepoint(pg.mouse.get_pos())
+             or l5_circle.collidepoint(pg.mouse.get_pos())) and show_level_select_menu) \
+                or ((level_start_button_rect.collidepoint(pg.mouse.get_pos())
+                    or back_button_rect.collidepoint(pg.mouse.get_pos())) and show_level_description):
 
-            mouse.set_visible(False)
+            pg.mouse.set_visible(False)
             change_mouse = True
-            if event.type == pg.MOUSEBUTTONUP and l1_circle.collidepoint(mouse.get_pos()):
+            if event.type == pg.MOUSEBUTTONUP and l1_circle.collidepoint(pg.mouse.get_pos()) and show_level_select_menu:
                 give_level1_status = True
-            if event.type == pg.MOUSEBUTTONUP and l2_circle.collidepoint(mouse.get_pos()):
+                show_level_select_menu = False
+                show_level_description = True
+
+            if event.type == pg.MOUSEBUTTONUP and l2_circle.collidepoint(pg.mouse.get_pos()) and show_level_select_menu:
                 give_level2_status = True
                 if level2_locked:
                     chain_sound.play()
                     time_since_clicked = pg.time.get_ticks()
-            if event.type == pg.MOUSEBUTTONUP and l3_circle.collidepoint(mouse.get_pos()):
+                else:
+                    show_level_description = True
+
+            if event.type == pg.MOUSEBUTTONUP and l3_circle.collidepoint(pg.mouse.get_pos()) and show_level_select_menu:
                 give_level3_status = True
                 if level3_locked:
                     chain_sound.play()
                     time_since_clicked = pg.time.get_ticks()
+                else:
+                    show_level_description = True
 
-            if event.type == pg.MOUSEBUTTONUP and l4_circle.collidepoint(mouse.get_pos()):
+            if event.type == pg.MOUSEBUTTONUP and l4_circle.collidepoint(pg.mouse.get_pos()) and show_level_select_menu:
                 give_level4_status = True
                 if level4_locked:
                     chain_sound.play()
                     time_since_clicked = pg.time.get_ticks()
-            if event.type == pg.MOUSEBUTTONUP and l5_circle.collidepoint(mouse.get_pos()):
+                else:
+                    show_level_description = True
+
+            if event.type == pg.MOUSEBUTTONUP and l5_circle.collidepoint(pg.mouse.get_pos()) and show_level_select_menu:
                 give_level5_status = True
                 if level5_locked:
                     chain_sound.play()
                     time_since_clicked = pg.time.get_ticks()
+                else:
+                    show_level_description = True
+            if event.type == pg.MOUSEBUTTONUP and back_button_rect.collidepoint(pg.mouse.get_pos()):
+                give_level1_status, give_level2_status, give_level3_status, give_level4_status, give_level5_status = \
+                    False, False, False, False, False
+                show_level_description = False
+                show_level_select_menu = True
+
+            if event.type == pg.MOUSEBUTTONUP and level_start_button_rect.collidepoint(pg.mouse.get_pos()):
+                pass
 
         else:
-            mouse.set_visible(True)
+            pg.mouse.set_visible(True)
             change_mouse = False
 
     screen.fill((71, 59, 123))
@@ -269,15 +309,15 @@ while True:
             current_line_rect = text_lines[line_in_listno].get_rect(topleft=(15, (500 + line_in_listno * 18)))
             screen.blit(text_lines[text_lines.index(line)], current_line_rect)
 
-    elif personal_thoughts_done:
+    elif show_level_select_menu:
         screen.fill('#1c1730')
         screen.blit(cave_backg_faded, (0, 0))
         pg.draw.rect(screen, "Black", pg.Rect(106, 71, 383, 383), 8, 2)
         screen.blit(level_select_menu, (110, 75))
 
         if level2_locked:
-            screen.blit(lock_chains_inverted, (260, 256))
-            screen.blit(lock_chains, (248, 260))
+            screen.blit(level_lock_chains_inverted, (260, 256))
+            screen.blit(level_lock_chains, (248, 260))
             if give_level2_status:
                 give_level1_status, give_level3_status, give_level4_status, give_level5_status = False, False, False, \
                                                                                                  False
@@ -287,8 +327,8 @@ while True:
                     give_level2_status = False
 
         if level3_locked:
-            screen.blit(lock_chains_inverted, (375, 256))
-            screen.blit(lock_chains, (365, 260))
+            screen.blit(level_lock_chains_inverted, (375, 256))
+            screen.blit(level_lock_chains, (365, 260))
             if give_level3_status:
                 give_level1_status, give_level2_status, give_level4_status, give_level5_status = False, False, False, \
                                                                                                  False
@@ -298,8 +338,8 @@ while True:
                     give_level3_status = False
 
         if level4_locked:
-            screen.blit(lock_chains_inverted, (200, 350))
-            screen.blit(lock_chains, (189, 353))
+            screen.blit(level_lock_chains_inverted, (200, 350))
+            screen.blit(level_lock_chains, (189, 353))
             if give_level4_status:
                 give_level1_status, give_level2_status, give_level3_status, give_level5_status = False, False, False, \
                                                                                                  False
@@ -309,8 +349,8 @@ while True:
                     give_level4_status = False
 
         if level5_locked:
-            screen.blit(lock_chains_inverted, (318, 350))
-            screen.blit(lock_chains, (306, 353))
+            screen.blit(level_lock_chains_inverted, (318, 350))
+            screen.blit(level_lock_chains, (306, 353))
             if give_level5_status:
                 give_level1_status, give_level2_status, give_level3_status, give_level4_status = False, False, False, \
                                                                                                  False
@@ -319,8 +359,25 @@ while True:
                     go_to_next_line()
                     give_level5_status = False
 
+    elif show_level_description:
+        screen.fill('#1c1730')
+        screen.blit(cave_backg_faded, (0, 0))
+        pg.draw.rect(screen, "Black", pg.Rect(106, 71, 383, 383), 8, 2)
+
+        if give_level1_status:
+            display_base_level_description()
+            screen.blit(level_description_title_font.render("LEVEL 1", True, 'gold'), (232, 173))
+            screen.blit(level_description_body_font.render("Objectives -", True, "white"), (150, 255))
+            screen.blit(level_description_body_font.render("> Explore the cave to find", True, "white"), (150, 295))
+            screen.blit(level_description_body_font.render("any usable resources.", True, "white"), (171, 315))
+
     if change_mouse:
-        screen.blit(click_cursor, (mouse.get_pos()[0]-15, mouse.get_pos()[1]))
+        screen.blit(click_cursor, (pg.mouse.get_pos()[0] - 15, pg.mouse.get_pos()[1]))
 
     pg.display.update()
     clock.tick(60)
+
+# Pro-tip: be careful when copying and pasting code, you may by mistake copy that function with the wrong parameters
+# and then forget to change them, this happened to me in rps program and was a huge reason why my avoiding algorithm
+# wasn't working at the start, so note: if the program isn't working how it's supposed to, but there are no errors or
+# any other code function that's wrong, check the arguments put in
