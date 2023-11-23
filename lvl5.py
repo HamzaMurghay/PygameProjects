@@ -9,8 +9,8 @@ pg.init()
 
 font = pg.font.SysFont('Consolas', 90)
 matrix_font = pg.font.Font('fonts/garet/Garet-Book.ttf', 600)
-b1 = matrix_font.render("[", True, 'black')
-b2 = matrix_font.render("]", True, 'black')
+br = matrix_font.render("[ ]", True, 'black')
+
 
 lights = [0]*16
 
@@ -25,8 +25,8 @@ screen.blit(line2, (55, 195))
 screen.blit(line3, (55, 295))
 screen.blit(line4, (55, 395))
 
-screen.blit(b1, (-60, -150))
-screen.blit(b2, (410, -150))
+screen.blit(br, (-60, -150))
+
 
 # first_seq = [1, 4, 7, 10, 13, 16]
 # second_seq = [2, 5, 8, 11, 14]
@@ -56,6 +56,8 @@ temp_all = [
     [(15 + num) % 16 for num in [1, 4, 7, 10, 13]],
 
 ]
+
+print(temp_all)
 
 while True:
     for event in pg.event.get():
@@ -95,35 +97,35 @@ while True:
                 lights[light] = int(not lights[light])
 
         if event.type == pg.KEYUP and event.key == pg.K_9:
-            for light in temp_all[0]:
+            for light in temp_all[8]:
                 lights[light] = int(not lights[light])
 
         if event.type == pg.KEYUP and event.key == pg.K_0:
-            for light in temp_all[1]:
+            for light in temp_all[9]:
                 lights[light] = int(not lights[light])
 
         if event.type == pg.KEYUP and event.key == pg.K_q:
-            for light in temp_all[2]:
+            for light in temp_all[10]:
                 lights[light] = int(not lights[light])
 
         if event.type == pg.KEYUP and event.key == pg.K_w:
-            for light in temp_all[3]:
+            for light in temp_all[11]:
                 lights[light] = int(not lights[light])
 
         if event.type == pg.KEYUP and event.key == pg.K_e:
-            for light in temp_all[4]:
+            for light in temp_all[12]:
                 lights[light] = int(not lights[light])
 
         if event.type == pg.KEYUP and event.key == pg.K_r:
-            for light in temp_all[5]:
+            for light in temp_all[13]:
                 lights[light] = int(not lights[light])
 
         if event.type == pg.KEYUP and event.key == pg.K_t:
-            for light in temp_all[6]:
+            for light in temp_all[14]:
                 lights[light] = int(not lights[light])
 
         if event.type == pg.KEYUP and event.key == pg.K_y:
-            for light in temp_all[7]:
+            for light in temp_all[15]:
                 lights[light] = int(not lights[light])
 
     screen.fill('darkgrey')
@@ -138,8 +140,7 @@ while True:
     screen.blit(line3, (75, 295))
     screen.blit(line4, (75, 395))
 
-    screen.blit(b1, (-60, -150))
-    screen.blit(b2, (410, -150))
+    screen.blit(br, (-60, -150))
 
     pg.display.update()
     clock.tick(60)
