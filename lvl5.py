@@ -11,6 +11,9 @@ font = pg.font.SysFont('Consolas', 90)
 matrix_font = pg.font.Font('fonts/garet/Garet-Book.ttf', 600)
 br = matrix_font.render("[ ]", True, 'black')
 
+click_cursor = pg.image.load('graphics/8-Bit Pixel Game/Pointing_hand_cursor.svg.png').convert_alpha()
+change_mouse = False
+
 
 lights = [0]*16
 
@@ -64,67 +67,67 @@ while True:
         if event.type == pg.QUIT:
             pg.quit()
             exit()
-        if event.type == pg.KEYUP and event.key == pg.K_1:
+        if (event.type == pg.KEYUP and event.key == pg.K_1) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(79, 104, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[0]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_2:
+        if (event.type == pg.KEYUP and event.key == pg.K_2) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(177, 104, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[1]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_3:
+        if (event.type == pg.KEYUP and event.key == pg.K_3) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(275, 104, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[2]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_4:
+        if (event.type == pg.KEYUP and event.key == pg.K_4) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(373, 104, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[3]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_5:
+        if (event.type == pg.KEYUP and event.key == pg.K_5) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(79, 204, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[4]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_6:
+        if (event.type == pg.KEYUP and event.key == pg.K_6) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(177, 204, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[5]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_7:
+        if (event.type == pg.KEYUP and event.key == pg.K_7) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(275, 204, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[6]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_8:
+        if (event.type == pg.KEYUP and event.key == pg.K_8) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(373, 204, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[7]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_9:
+        if (event.type == pg.KEYUP and event.key == pg.K_9) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(79, 304, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[8]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_0:
+        if (event.type == pg.KEYUP and event.key == pg.K_0) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(177, 304, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[9]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_q:
+        if (event.type == pg.KEYUP and event.key == pg.K_q) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(275, 304, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[10]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_w:
+        if (event.type == pg.KEYUP and event.key == pg.K_w) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(373, 304, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[11]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_e:
+        if (event.type == pg.KEYUP and event.key == pg.K_e) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(79, 404, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[12]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_r:
+        if (event.type == pg.KEYUP and event.key == pg.K_r) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(177, 404, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[13]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_t:
+        if (event.type == pg.KEYUP and event.key == pg.K_t) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(275, 404, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[14]:
                 lights[light] = int(not lights[light])
 
-        if event.type == pg.KEYUP and event.key == pg.K_y:
+        if (event.type == pg.KEYUP and event.key == pg.K_y) or (event.type == pg.MOUSEBUTTONUP and pg.Rect(373, 404, 42, 58).collidepoint(pg.mouse.get_pos())):
             for light in temp_all[15]:
                 lights[light] = int(not lights[light])
 
