@@ -424,3 +424,42 @@ while True:
 
     pg.display.update()
     clock.tick(tick_rate)
+
+
+# LESS IMPORTANT THINGS OF NOTE FOR THIS PROGRAM:
+
+
+    # rgb values for green ON: 41, 240, 97
+    # rgb values for gray OFF: 220 220, 220
+
+
+    # def on_collision_change_class(chaser, chaser_list, chaser_class,chased_list):  # This is there to show an idea that I had to reduce the code but the implementation didn't work for some reason that I haven't figured out yet, if I figure it out this will be implemented and this comment removed
+    #     for chased in chased_list:
+    #         if chaser.rectangle.colliderect(chased.rectangle):
+    #             position_temporary = chased.rectangle.topleft
+    #             chased_list.remove(chased)
+    #             chased = chaser_class
+    #             chased.rectangle = chased.surface.get_rect(topleft = position_temporary)
+    #             chaser_list.append(chased)
+    #             pg.time.delay(2)
+
+
+    # screen.blit(rock1.rock_surface, mouse.get_pos())
+    # py game.draw.rect(screen, 'pink',(15, 100, mouse.get_pos()[0]-15, mouse.get_pos()[1]-100)  # How to draw rectangle of size from a certain point (here 15,100) to your mouse, i have this here as a comment for future pygame projects, i wanted to tell that you need to offset the size by the starting position otherwise the rectangle will go 15 away from mouse on x and 100 down from mouse on y, try it out and then remove the "-15" and "-100" to see what i mean, if you didnt understand what i mean
+
+
+
+
+    # all_rocks_center = []  # this creates the list of all centers of objects that will be used in the for loop below
+    # for rock in rock_list:
+    #     rock.rock_rectangle = rock.rock_surface.get_rect(topleft = (randint(25, 139), randint(100, 217)))
+    #     all_rocks_center.append((rock.rock_rectangle.centerx, rock.rock_rectangle.centery))
+
+
+    # for i in range(33):  # initial and better idea for collisions checking but idk why it didnt work
+    #
+    #     while rock_list[i].rock_rectangle.collidepoint(all_rocks_center[i]):
+    #         for center_point in all_rocks_center:
+    #             if center_point == (rock_list[i].rock_rectangle.centerx, rock_list[i].rock_rectangle.centery):
+    #                 continue
+    #         rock_list[i].rock_rectangle = rock_list[i].rock_surface.get_rect(topleft = (randint(25, 139), randint(100, 217)))

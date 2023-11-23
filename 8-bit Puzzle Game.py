@@ -2,6 +2,8 @@ import pygame as pg
 
 screen = pg.display.set_mode((600, 600))
 pg.display.set_caption("8-bit Puzzle Game")
+# pg.display.set_icon()  # Implement this feature later
+# pg.display.set_allow_screensaver()  # Implement this feature later
 clock = pg.time.Clock()
 
 pg.init()
@@ -376,3 +378,8 @@ while True:
 
     pg.display.update()
     clock.tick(60)
+
+# Pro-tip: be careful when copying and pasting code, you may by mistake copy that function with the wrong parameters
+# and then forget to change them, this happened to me in rps program and was a huge reason why my avoiding algorithm
+# wasn't working at the start, so note: if the program isn't working how it's supposed to, but there are no errors or
+# any other code function that's wrong, check the arguments put in
