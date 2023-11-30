@@ -9,10 +9,10 @@ clock = pg.time.Clock()
 
 pg.init()
 
-# Creating assets -------------------------------------------------------------------------------------
+# Creating assets and Related Variables -------------------------------------------------------------------------------------
 
-light_on = pg.transform.scale(pg.image.load('../graphics/8-Bit Pixel Game/lvl5/light_on.png'), (60, 80))
-light_off = pg.transform.scale(pg.image.load('../graphics/8-Bit Pixel Game/lvl5/light_off.png'), (60, 80))
+light_on = pg.transform.scale(pg.image.load('../graphics/8-Bit Pixel Game/lvl5/light_on.png').convert_alpha(), (60, 80))
+light_off = pg.transform.scale(pg.image.load('../graphics/8-Bit Pixel Game/lvl5/light_off.png').convert_alpha(), (60, 80))
 
 light_state = [light_off, light_on]
 
