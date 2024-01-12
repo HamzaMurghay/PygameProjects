@@ -14,7 +14,7 @@ b_square_speedy = 5
 b_square_directionx, b_square_directiony = 1, 1
 
 
-bounce_sound = pg.mixer.Sound('sounds/Rainbow Bouncing Square Sounds/bounce.mp3')
+bounce_sound = pg.mixer.Sound('../assets/sounds/Rainbow Bouncing Square Sounds/bounce.mp3')
 
 state = 0
 r = 255

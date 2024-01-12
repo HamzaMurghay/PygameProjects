@@ -12,46 +12,46 @@ pg.init()
 
 # Setting up Fonts ---------------------------------------------------------------------------------------------
 
-textbox_font = pg.font.Font("fonts/garet/Garet-Book.ttf", 16)
+textbox_font = pg.font.Font("../assets/fonts/garet/Garet-Book.ttf", 16)
 
-namebar_font_big = pg.font.Font("fonts/garet/Garet-Heavy.ttf", 18)
-namebar_font_small = pg.font.Font('fonts/garet/Garet-Heavy.ttf', 12)
+namebar_font_big = pg.font.Font("../assets/fonts/garet/Garet-Heavy.ttf", 18)
+namebar_font_small = pg.font.Font('../assets/fonts/garet/Garet-Heavy.ttf', 12)
 
 
-level_description_title_font = pg.font.Font('fonts/garet/Garet-Heavy.ttf', 34)
-level_description_body_font = pg.font.Font('fonts/garet/Garet-Book.ttf', 24)
+level_description_title_font = pg.font.Font('../assets/fonts/garet/Garet-Heavy.ttf', 34)
+level_description_body_font = pg.font.Font('../assets/fonts/garet/Garet-Book.ttf', 24)
 
 # Importing Game Images and other elements ---------------------------------------------------------------------
 
-cave_backg = pg.image.load('graphics/8-Bit Pixel Game/main_code/cave background.png').convert_alpha()
-cave_backg_faded = pg.image.load('graphics/8-Bit Pixel Game/main_code/cave background_faded.png').convert_alpha()
-textbox = pg.image.load('graphics/8-Bit Pixel Game/main_code/textbox_trimmed.png').convert_alpha()
+cave_backg = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/cave background.png').convert_alpha()
+cave_backg_faded = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/cave background_faded.png').convert_alpha()
+textbox = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/textbox_trimmed.png').convert_alpha()
 
-ee_happy = pg.image.load('graphics/8-Bit Pixel Game/main_code/expert_explorer_happy_trimmed.jpg.png').convert_alpha()
-ee_shocked1 = pg.image.load('graphics/8-Bit Pixel Game/main_code/expert_explorer_shocked_trimmed1.png').convert_alpha()
-ee_shocked2 = pg.image.load('graphics/8-Bit Pixel Game/main_code/expert_explorer_shocked_trimmed2.png').convert_alpha()
-ee_angry = pg.image.load('graphics/8-Bit Pixel Game/main_code/expert_explorer_angry_trimmed.png').convert_alpha()
+ee_happy = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_happy_trimmed.jpg.png').convert_alpha()
+ee_shocked1 = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_shocked_trimmed1.png').convert_alpha()
+ee_shocked2 = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_shocked_trimmed2.png').convert_alpha()
+ee_angry = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_angry_trimmed.png').convert_alpha()
 
-level_select_menu = pg.image.load('graphics/8-Bit Pixel Game/main_code/level select menu.png').convert_alpha()
-level_description_backg = pg.image.load('graphics/8-Bit Pixel Game/main_code/level_description.png')
+level_select_menu = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/level select menu.png').convert_alpha()
+level_description_backg = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/level_description.png')
 
-level_lock_chains = pg.image.load('graphics/8-Bit Pixel Game/main_code/chains_trimmed.png').convert_alpha()
-level_lock_chains_inverted = pg.image.load('graphics/8-Bit Pixel Game/main_code/chains_inv_trimmed.png').convert_alpha()
-level_start_button = pg.image.load('graphics/8-Bit Pixel Game/main_code/start_button_trimmed.png').convert_alpha()
+level_lock_chains = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/chains_trimmed.png').convert_alpha()
+level_lock_chains_inverted = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/chains_inv_trimmed.png').convert_alpha()
+level_start_button = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/start_button_trimmed.png').convert_alpha()
 level_start_button_rect = level_start_button.get_rect(topleft=(233, 360))
 
-back_button = pg.image.load('graphics/8-Bit Pixel Game/main_code/back_arrow.png').convert_alpha()
+back_button = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/back_arrow.png').convert_alpha()
 back_button_rect = back_button.get_rect(topleft=(140, 134))
 
-chain_sound = pg.mixer.Sound('sounds/8-Bit Pixel Game/metal_chain_sound.mp3')
+chain_sound = pg.mixer.Sound('../assets/sounds/8-Bit Pixel Game/metal_chain_sound.mp3')
 
-click_cursor = pg.image.load('graphics/8-Bit Pixel Game/main_code/Pointing_hand_cursor.svg.png').convert_alpha()
+click_cursor = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/Pointing_hand_cursor.svg.png').convert_alpha()
 change_mouse = False
 
 # Setting up Textbox Text and Related Variables ----------------------------------------------------------------
 
 empty_line = textbox_font.render("", True, 'black')
-text_lines = [empty_line]  # This list stores the surfaces of text lines needed in textbox, a for loop will blit them all
+text_lines = [empty_line]  # This list stores the surfaces of text lines needed in textbox,a for loop will blit them all
 current_line_rect = text_lines[0].get_rect(topleft=(5, 500))
 
 namebar_text = namebar_font_big.render("??????", True, 'White')
@@ -92,11 +92,14 @@ def write_in_textbox(string: str):  # This function writes in the area of the te
 
 
 def go_to_next_dialogue():  # Clears list text_lines and resets variables in order to make way for the new dialogue text
-    global text_lines, empty_line, dialogue_index, current_line_rect, print_is_ongoing, lines_done
+    global text_lines, empty_line, dialogue_index, current_line_rect, print_is_ongoing, current_letter_idx, running_text
 
     text_lines.clear()
     text_lines.append(empty_line)
-    current_line_rect = text_lines[lines_done].get_rect(topleft=(15, 500))
+    current_line_rect = text_lines[0].get_rect(topleft=(15, 500))
+
+    current_letter_idx = 0
+    running_text = " "
     dialogue_index += 1
     print_is_ongoing = True
 
@@ -132,7 +135,7 @@ def chose_ee_sprite():  # Chooses the appropriate ee(expert explorer) sprite to 
         if switch_sprite_counter < 52: switch_sprite_counter += 1  # These two lines facilitate the shocked animation
         return (ee_shocked2, (-35, 280)) if switch_sprite_counter % 10 == 0 else (ee_shocked1, (-35, 280))
 
-    elif dialogue_index in [2, 3]:
+    else:
         return ee_angry, (50, 270)
 
 
@@ -142,12 +145,13 @@ def chose_ee_sprite():  # Chooses the appropriate ee(expert explorer) sprite to 
 def show_level_status(level):
     global current_letter_idx, lines_done, running_text, current_line_rect, text_lines
 
-    if level and level <= (levels_completed + 1):
-        for render_text, render_coords in level_descriptions[level - 1]:
-            screen.blit(render_text, render_coords)
-    elif level and level > (levels_completed + 1):
+    if not level: return
 
-        if pg.time.get_ticks() - time_since_clicked < 10: go_to_next_dialogue()  # This ensures that repeatedly clicking different locked levels doesn't glitch out the textbox
+    if level <= (levels_completed + 1):  # If the level whose status is asked is not locked
+        for render_text, render_coords in level_descriptions[level - 1]: screen.blit(render_text, render_coords)
+
+    else:
+        if (pg.time.get_ticks() - time_since_clicked) < 10: go_to_next_dialogue()  # This ensures that repeatedly clicking different locked levels doesn't glitch out the textbox
 
         write_in_textbox("This level is locked, complete the previous levels to unlock it.")
         screen.blit(text_lines[0], (current_line_rect.topleft[0] + 30, current_line_rect.topleft[1]))
@@ -163,7 +167,7 @@ def display_level_description_background():
     screen.blit(level_start_button, level_start_button_rect)
 
 
-# Setting Up Dialogue Lists For Characters ---------------------------------------------------------------------
+# Setting Up Pre-Defined Dialogues And Level Descriptions ------------------------------------------------------
 
 intro_dialogue = ["Heya chump! I see you're new here, if you don't know what's going on, don't worry! You have me! The "
                   "best traveller in the entire continent of FERALIS to help you out, UwU!",
@@ -183,33 +187,34 @@ personal_thoughts = ["(Okayyyyy, that was...interesting. Anyway,so let's think: 
                      "(Now besides that, I'm trapped in a cave, with no idea how to get out....but he did say to solve "
                      "5 puzzles or something...let's try that for now.)"]
 
+level_descriptions = (
+    (
+        (level_description_title_font.render("LEVEL 1", True, 'gold'), (232, 173)),
+        (level_description_body_font.render("Objectives -", True, "white"), (150, 255)),
+        (level_description_body_font.render("> Explore the cave to find", True, "white"), (150, 295)),
+        (level_description_body_font.render("any usable resources.", True, "white"), (171, 315))
+    ),
+)
+
 # Main Loop Variable Declarations ------------------------------------------------------------------------------
 
 dialogue_index = 0
-intro_done = False
-personal_thoughts_done = False
+intro_done = personal_thoughts_done = False
 
 show_level_select_menu = False
 show_specific_level_description = False
 
 levels_completed = 0
+
+# This list has the coordinates of where the chains for locked levels need to be placed
 locked_levels_chains = [[(260, 256), (248, 260)], [(375, 256), (365, 260)],
-                        [(200, 350), (189, 353)], [(318, 350), (306, 353)]]  # This list has the coordinates of where the chains for locked levels need to be placed
+                        [(200, 350), (189, 353)], [(318, 350), (306, 353)]]
 
-level_descriptions = [
-
-    [
-        [level_description_title_font.render("LEVEL 1", True, 'gold'), (232, 173)],
-        [level_description_body_font.render("Objectives -", True, "white"), (150, 255)],
-        [level_description_body_font.render("> Explore the cave to find", True, "white"), (150, 295)],
-        [level_description_body_font.render("any usable resources.", True, "white"), (171, 315)]
-    ]
-]
-
-l1_circle = pg.draw.circle(screen, "black", (187, 293), 41)  # These are the hit boxes for the levels
-l2_circle = pg.draw.circle(screen, "black", (292, 293), 42)  # that transform your cursor when you
-l3_circle = pg.draw.circle(screen, "black", (410, 293), 41)  # hover over it and detect whether you
-l4_circle = pg.draw.circle(screen, "black", (233, 385), 42)  # click it
+# These are the hit boxes for the levels that transform your cursor when you hover over it and detect when you click it
+l1_circle = pg.draw.circle(screen, "black", (187, 293), 41)
+l2_circle = pg.draw.circle(screen, "black", (292, 293), 42)
+l3_circle = pg.draw.circle(screen, "black", (410, 293), 41)
+l4_circle = pg.draw.circle(screen, "black", (233, 385), 42)
 l5_circle = pg.draw.circle(screen, "black", (350, 385), 42)
 
 cursor_collision = [l1_circle, l2_circle, l3_circle, l4_circle, l5_circle, back_button_rect, level_start_button_rect]  # This list contains the elements to check if the cursor collides with and thus change the cursor to a click cursor along with the boolean values of whether they are on screen or not
@@ -250,7 +255,7 @@ while True:
                 change_mouse = True
 
                 if event.type == pg.MOUSEBUTTONUP:
-                    give_level_status_of = current_index + 1
+                    give_level_status_of = current_index + 1  # +1 is only for reader to understand which level is being asked for, during execution +1 is nullified
 
                     if levels_completed >= current_index:
                         show_level_select_menu = False
@@ -330,8 +335,3 @@ while True:
 
     pg.display.update()
     clock.tick(60)
-
-# Pro-tip: be careful when copying and pasting code, you may by mistake copy that function with the wrong parameters
-# and then forget to change them, this happened to me in rps program and was a huge reason why my avoiding algorithm
-# wasn't working at the start and remained unfixed for at-least 1.5 months, so note: if the program isn't working how
-# it's supposed to, but there are no errors or any other code function that's wrong, check the arguments put in
