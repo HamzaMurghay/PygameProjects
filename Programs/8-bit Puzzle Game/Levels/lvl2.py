@@ -8,7 +8,7 @@ screen.fill('darkgrey')
 pg.init()
 
 light_source = pg.draw.circle(screen, 'white', (50, 50), 30)
-mirror1 = pg.image.load('../../graphics/8-Bit Pixel Game/lvl1/line_mirror.png').convert_alpha()
+mirror1 = pg.image.load('../../../assets/graphics/8-Bit Pixel Game/lvl1/line_mirror.png').convert_alpha()
 # s, t = mirror1.get_rect(topleft=(500, 300)).left, mirror1.get_rect(topleft=(500, 300)).top
 centerx = mirror1.get_rect(topleft=(500, 300)).centerx
 centery = mirror1.get_rect(topleft=(500, 300)).centery

@@ -1,25 +1,28 @@
 import pygame as pg
 import random
 
-# Setting up Pygame Base Objects ----------------------------------------------------------------------
+# Setting up Pygame Base Objects -------------------------------------------------------------------------------
 
 screen = pg.display.set_mode((600, 600))
-pg.display.set_icon(pg.image.load('../graphics/8-Bit Pixel Game/back_arrow.png'))  # Change this
+pg.display.set_icon(pg.image.load('../../../assets/graphics/8-Bit Pixel Game/main_code/back_arrow.png'))  # Change this
 clock = pg.time.Clock()
 
 pg.init()
 
-# Creating assets and Related Variables -------------------------------------------------------------------------------------
+# Creating assets and Related Variables ------------------------------------------------------------------------
 
-light_on = pg.transform.scale(pg.image.load('../../graphics/8-Bit Pixel Game/lvl5/light_on.png').convert_alpha(), (60, 80))
-light_off = pg.transform.scale(pg.image.load('../../graphics/8-Bit Pixel Game/lvl5/light_off.png').convert_alpha(), (60, 80))
+light_on = pg.transform.scale(pg.image.load(
+    '../../../assets/graphics/8-Bit Pixel Game/lvl5/light_on.png').convert_alpha(), (60, 80))
+light_off = pg.transform.scale(pg.image.load(
+    '../../../assets/graphics/8-Bit Pixel Game/lvl5/light_off.png').convert_alpha(), (60, 80))
 
 light_state = [light_off, light_on]
 
-click_cursor = pg.image.load('../graphics/8-Bit Pixel Game/Pointing_hand_cursor.svg.png').convert_alpha()
+click_cursor = pg.image.load(
+    '../../../assets/graphics/8-Bit Pixel Game/main_code/Pointing_hand_cursor.svg.png').convert_alpha()
 change_mouse = False
 
-# Function Definitions --------------------------------------------------------------------------------
+# Function Definitions -----------------------------------------------------------------------------------------
 
 
 def display_light_grid(light_list):

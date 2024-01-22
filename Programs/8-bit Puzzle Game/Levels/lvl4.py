@@ -1,12 +1,15 @@
 import pygame as pg
 
 screen = pg.display.set_mode((600, 600))
-pg.display.set_icon(pg.image.load('../graphics/8-Bit Pixel Game/back_arrow.png'))  # Change this
+pg.display.set_icon(pg.image.load('../../../assets/graphics/8-Bit Pixel Game/lvl4/maze_original.png'))  # Change this
 clock = pg.time.Clock()
 
 pg.init()
 
-maze1 = pg.image.lo
+maze1 = pg.image.load('../../../assets/graphics/8-Bit Pixel Game/lvl4/maze.png').convert_alpha()
+maze1 = pg.transform.scale(maze1, (300, 300))
+maze_mask = pg.mask.from_surface(maze1, 0)
+maze_mask_surface = maze_mask.to_surface()
 
 character_x = 100
 character_y = 100
@@ -38,20 +41,25 @@ while True:
         character_y = -30
 
     screen.fill('darkgrey')
-    boundary = pg.draw.rect(screen, 'blue', pg.Rect(20, 20, 200, 200))
+    screen.blit(maze_mask_surface, (0, 0))
 
-    line = pg.draw.line(screen, 'black', (200,  200), (200, 300))
+    # boundary = pg.draw.rect(screen, 'blue', pg.Rect(20, 20, 200, 200))
 
-    character = pg.draw.rect(screen, 'red', pg.Rect(character_x, character_y, 35, 35))
+    # line = pg.draw.line(screen, 'black', (200,  200), (200, 300))
+
+    character = pg.draw.rect(screen, 'red', pg.Rect(character_x, character_y, 10, 10))
     character_left = pg.draw.line(screen, 'red', character.topleft, character.bottomleft)
     character_right = pg.draw.line(screen, 'red', character.topright, character.bottomright)
     character_top = pg.draw.line(screen, 'red', character.topleft, character.topright)
     character_bottom = pg.draw.line(screen, 'red', character.bottomleft, character.bottomright)
 
-    if character_left.collideobjects([line]): character_x += 5
-    if character_right.collideobjects([line]): character_x -= 5
-    if character_top.collideobjects([line]): character_y += 5
-    if character_bottom.collideobjects([line]): character_y -= 5
+    # if character_left.collideobjects([line]): character_x += 5
+    # if character_right.collideobjects([line]): character_x -= 5
+    # if character_top.collideobjects([line]): character_y += 5
+    # if character_bottom.collideobjects([line]): character_y -= 5
+
+    if maze_mask.overlap(pg.mask.from_surface(pg.Surface((character_x-10, character_y-10))), (character_x, character_y)):
+        print('collide')
 
     pg.display.update()
     clock.tick(60)

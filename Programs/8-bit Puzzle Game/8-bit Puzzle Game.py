@@ -12,40 +12,49 @@ pg.init()
 
 # Setting up Fonts ---------------------------------------------------------------------------------------------
 
-textbox_font = pg.font.Font("../assets/fonts/garet/Garet-Book.ttf", 16)
+textbox_font = pg.font.Font("../../assets/fonts/garet/Garet-Book.ttf", 16)
 
-namebar_font_big = pg.font.Font("../assets/fonts/garet/Garet-Heavy.ttf", 18)
-namebar_font_small = pg.font.Font('../assets/fonts/garet/Garet-Heavy.ttf', 12)
+namebar_font_big = pg.font.Font("../../assets/fonts/garet/Garet-Heavy.ttf", 18)
+namebar_font_small = pg.font.Font('../../assets/fonts/garet/Garet-Heavy.ttf', 12)
 
 
-level_description_title_font = pg.font.Font('../assets/fonts/garet/Garet-Heavy.ttf', 34)
-level_description_body_font = pg.font.Font('../assets/fonts/garet/Garet-Book.ttf', 24)
+level_description_title_font = pg.font.Font('../../assets/fonts/garet/Garet-Heavy.ttf', 34)
+level_description_body_font = pg.font.Font('../../assets/fonts/garet/Garet-Book.ttf', 24)
 
 # Importing Game Images and other elements ---------------------------------------------------------------------
 
-cave_backg = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/cave background.png').convert_alpha()
-cave_backg_faded = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/cave background_faded.png').convert_alpha()
-textbox = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/textbox_trimmed.png').convert_alpha()
+cave_backg = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/cave background.png').convert_alpha()
+cave_backg_faded = pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/cave background_faded.png').convert_alpha()
+textbox = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/textbox_trimmed.png').convert_alpha()
 
-ee_happy = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_happy_trimmed.jpg.png').convert_alpha()
-ee_shocked1 = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_shocked_trimmed1.png').convert_alpha()
-ee_shocked2 = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_shocked_trimmed2.png').convert_alpha()
-ee_angry = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_angry_trimmed.png').convert_alpha()
+ee_happy = pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_happy_trimmed.jpg.png').convert_alpha()
+ee_shocked1 = pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_shocked_trimmed1.png').convert_alpha()
+ee_shocked2 = pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_shocked_trimmed2.png').convert_alpha()
+ee_angry = pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_angry_trimmed.png').convert_alpha()
 
-level_select_menu = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/level select menu.png').convert_alpha()
-level_description_backg = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/level_description.png')
+level_select_menu = pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/level select menu.png').convert_alpha()
+level_description_backg = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/level_description.png')
 
-level_lock_chains = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/chains_trimmed.png').convert_alpha()
-level_lock_chains_inverted = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/chains_inv_trimmed.png').convert_alpha()
-level_start_button = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/start_button_trimmed.png').convert_alpha()
+level_lock_chains = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/chains_trimmed.png').convert_alpha()
+level_lock_chains_inverted = pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/chains_inv_trimmed.png').convert_alpha()
+level_start_button = pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/start_button_trimmed.png').convert_alpha()
 level_start_button_rect = level_start_button.get_rect(topleft=(233, 360))
 
-back_button = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/back_arrow.png').convert_alpha()
+back_button = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/back_arrow.png').convert_alpha()
 back_button_rect = back_button.get_rect(topleft=(140, 134))
 
-chain_sound = pg.mixer.Sound('../assets/sounds/8-Bit Pixel Game/metal_chain_sound.mp3')
+chain_sound = pg.mixer.Sound('../../assets/sounds/8-Bit Pixel Game/metal_chain_sound.mp3')
 
-click_cursor = pg.image.load('../assets/graphics/8-Bit Pixel Game/main_code/Pointing_hand_cursor.svg.png').convert_alpha()
+click_cursor = pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/Pointing_hand_cursor.svg.png').convert_alpha()
 change_mouse = False
 
 # Setting up Textbox Text and Related Variables ----------------------------------------------------------------
@@ -335,3 +344,10 @@ while True:
 
     pg.display.update()
     clock.tick(60)
+
+# Pro-tip: be careful when copying and pasting code, you may by mistake copy that function with the wrong parameters
+# and then forget to change them, this happened to me in rps program and was a huge reason why my avoiding algorithm
+# wasn't working at the start, so note: if the program isn't working how it's supposed to, but there are no errors or
+# any other code function that's wrong, check the arguments put in
+# wasn't working at the start and remained unfixed for at-least 1.5 months, so note: if the program isn't working how
+# it's supposed to, but there are no errors or any other code function that's wrong, check the arguments put in

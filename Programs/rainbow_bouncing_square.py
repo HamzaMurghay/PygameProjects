@@ -46,7 +46,6 @@ def draw_move_bounce(red, green, blue):
         bounce_sound.play()
         b_square_directiony *= -1
 
-
     pg.display.update()
     clock.tick(60)
 

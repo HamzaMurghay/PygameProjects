@@ -10,20 +10,20 @@ text_smallerfont = pg.font.Font('../assets/fonts/primeform_pro/PrimeformProDemo-
 
 
 class Rock:
-    rock_surface = pg.image.load('../graphics/Rock Paper Scissors graphics/rockT.png').convert_alpha()
+    rock_surface = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/rockT.png').convert_alpha()
     speed_x = speed_y = 1
     direction_x = direction_y = 1
 
 
 class Paper:
-    paper_surface = pg.image.load('../graphics/Rock Paper Scissors graphics/paperT.png').convert_alpha()
+    paper_surface = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/paperT.png').convert_alpha()
     rectangle = None
     speed_x = speed_y = 1
     direction_x = direction_y = 1
 
 
 class Scissor:
-    scissor_surface = pg.image.load('../graphics/Rock Paper Scissors graphics/scissorsT.png').convert_alpha()
+    scissor_surface = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/scissorsT.png').convert_alpha()
     rectangle = None
     speed_x = speed_y = 1
     direction_x = direction_y = 1
@@ -63,23 +63,23 @@ def place_all_objects():
                 topleft=(random.randint(4, 565), random.randint(82, 572)))
 
 
-pauseb_surface = pg.image.load('../graphics/Rock Paper Scissors graphics/pausebutton.jpg').convert_alpha()
+pauseb_surface = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/pausebutton.jpg').convert_alpha()
 pause_button_rectangle = pauseb_surface.get_rect(topleft=(16, 7))
 
 current_play_state_surface = playb_surface = pg.image.load(
-    '../graphics/Rock Paper Scissors graphics/playbutton.jpg').convert_alpha()  # we define two variables , play_button and its surface and rectangle, along with current_play_state and its surface and rectangle, play button contains the play button surface image and its rectangle. it is constant, however  current_play_state will keep alternating and changing between being equal to the play button and the pause button, but at the start, we define it as equal to the play button, which will change later on
+    '../assets/graphics/Rock Paper Scissors graphics/playbutton.jpg').convert_alpha()  # we define two variables , play_button and its surface and rectangle, along with current_play_state and its surface and rectangle, play button contains the play button surface image and its rectangle. it is constant, however  current_play_state will keep alternating and changing between being equal to the play button and the pause button, but at the start, we define it as equal to the play button, which will change later on
 current_play_state_rectangle = play_button_rectangle = playb_surface.get_rect(topleft=(15, 7))
 
-resetb_surface = pg.image.load('../graphics/Rock Paper Scissors graphics/reset button.png').convert_alpha()
+resetb_surface = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/reset button.png').convert_alpha()
 reset_button_rectangle = resetb_surface.get_rect(topleft=(17, 45))
 
-fast_forward_button_surface = pg.image.load('../graphics/Rock Paper Scissors graphics/fastForwardsmall.png')
+fast_forward_button_surface = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/fastForwardsmall.png')
 fast_forward_button_rectangle = fast_forward_button_surface.get_rect(topleft=(525, 45))
 
-avoid_algo_toggle_ON = pg.image.load('../graphics/Rock Paper Scissors graphics/ToggleON.png')
-avoid_algo_toggle_transition1 = pg.image.load('../graphics/Rock Paper Scissors graphics/ToggleTransition1.png')
-avoid_algo_toggle_transition2 = pg.image.load('../graphics/Rock Paper Scissors graphics/ToggleTransition2.png')
-avoid_algo_toggle_OFF = pg.image.load('../graphics/Rock Paper Scissors graphics/ToggleOFF.png')
+avoid_algo_toggle_ON = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/ToggleON.png')
+avoid_algo_toggle_transition1 = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/ToggleTransition1.png')
+avoid_algo_toggle_transition2 = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/ToggleTransition2.png')
+avoid_algo_toggle_OFF = pg.image.load('../assets/graphics/Rock Paper Scissors graphics/ToggleOFF.png')
 
 avoid_algo_toggle_transition_states = [avoid_algo_toggle_ON, avoid_algo_toggle_transition1,
                                        avoid_algo_toggle_transition2, avoid_algo_toggle_OFF]
@@ -136,8 +136,7 @@ def draw_text_and_borders():
     avoid_algo_surface2 = text_smallerfont.render('Enemies', True, 'Black')
     avoid_algo_rectangle2 = avoid_algo_surface2.get_rect(topleft=(485, 27))
 
-    pg.draw.rect(screen, 'Gray', pg.Rect(75, 18, 114, 28), 2,
-                 10)  # pg.Rect(startposition_x, startposition_y, size_of_rect_x, size_of_rect_y)
+    pg.draw.rect(screen, 'Gray', pg.Rect(75, 18, 114, 28), 2, 10)  # pg.Rect(startposition_x, startposition_y, size_of_rect_x, size_of_rect_y)
     screen.blit(rocks_num_surface, rocks_num_rectangle)
 
     pg.draw.rect(screen, 'Red', pg.Rect(202, 18, 122, 28), 2, 10)
