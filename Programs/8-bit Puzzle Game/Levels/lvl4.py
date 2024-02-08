@@ -7,12 +7,33 @@ clock = pg.time.Clock()
 pg.init()
 
 maze1 = pg.image.load('../../../assets/graphics/8-Bit Pixel Game/lvl4/maze.png').convert_alpha()
-maze1 = pg.transform.scale(maze1, (300, 300))
+maze1 = pg.transform.scale(maze1, (900, 900))
 maze_mask = pg.mask.from_surface(maze1, 0)
 maze_mask_surface = maze_mask.to_surface()
 
-character_x = 100
-character_y = 100
+character_surf = pg.transform.scale(
+    pg.image.load("../../../assets/graphics/8-Bit Pixel Game/lvl4/character.png").convert_alpha(), (10, 10))
+character_mask = pg.mask.from_surface(character_surf)
+character_rect = character_surf.get_rect(topleft=(350, 5))
+
+
+def handle_key_input():
+    keys = pg.key.get_pressed()
+
+    if keys[pg.K_d]:
+        character_rect.x += 5
+    if keys[pg.K_a]:
+        character_rect.x -= 5
+    if keys[pg.K_s]:
+        character_rect.y += 5
+    if keys[pg.K_w]:
+        character_rect.y -= 5
+
+
+def draw_game_elements():
+    screen.fill('darkgrey')
+    screen.blit(maze_mask_surface, (0, 0))
+    screen.blit(character_surf, character_rect)
 
 
 while True:
@@ -21,45 +42,8 @@ while True:
             pg.quit()
             exit()
 
-    keys = pg.key.get_pressed()
-    if keys[pg.K_d]:
-        character_x += 5
-    if keys[pg.K_a]:
-        character_x -= 5
-    if keys[pg.K_s]:
-        character_y += 5
-    if keys[pg.K_w]:
-        character_y -= 5
-
-    if character_x > 600:
-        character_x = -35
-    elif character_x < -35:
-        character_x = 600
-    elif character_y < -40:
-        character_y = 630
-    elif character_y > 630:
-        character_y = -30
-
-    screen.fill('darkgrey')
-    screen.blit(maze_mask_surface, (0, 0))
-
-    # boundary = pg.draw.rect(screen, 'blue', pg.Rect(20, 20, 200, 200))
-
-    # line = pg.draw.line(screen, 'black', (200,  200), (200, 300))
-
-    character = pg.draw.rect(screen, 'red', pg.Rect(character_x, character_y, 10, 10))
-    character_left = pg.draw.line(screen, 'red', character.topleft, character.bottomleft)
-    character_right = pg.draw.line(screen, 'red', character.topright, character.bottomright)
-    character_top = pg.draw.line(screen, 'red', character.topleft, character.topright)
-    character_bottom = pg.draw.line(screen, 'red', character.bottomleft, character.bottomright)
-
-    # if character_left.collideobjects([line]): character_x += 5
-    # if character_right.collideobjects([line]): character_x -= 5
-    # if character_top.collideobjects([line]): character_y += 5
-    # if character_bottom.collideobjects([line]): character_y -= 5
-
-    if maze_mask.overlap(pg.mask.from_surface(pg.Surface((character_x-10, character_y-10))), (character_x, character_y)):
-        print('collide')
+    handle_key_input()
+    draw_game_elements()
 
     pg.display.update()
     clock.tick(60)

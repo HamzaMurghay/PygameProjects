@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35ce3a48-7ce2-4943-be81-adbd90047b55" name="Changes" comment="Added Ping-Pong and Made File directories simpler to understand" />
+    <list default="true" id="35ce3a48-7ce2-4943-be81-adbd90047b55" name="Changes" comment="Added Ping-Pong and Made File directories simpler to understand">
+      <change afterPath="$PROJECT_DIR$/Programs/8-bit Puzzle Game/8-bit Puzzle Game (OLD CODE).py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Programs/Ping Pong/Pyglet Ping Pong.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Temp gravity simulator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_1_2024_2_29_AM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_1_2024_2_29_AM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programs/8-bit Puzzle Game/Levels/lvl2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Programs/8-bit Puzzle Game/Levels/lvl2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programs/8-bit Puzzle Game/Levels/lvl4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Programs/8-bit Puzzle Game/Levels/lvl4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programs/Ping Pong.py" beforeDir="false" afterPath="$PROJECT_DIR$/Programs/Ping Pong/Pygame Ping Pong.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/graphics/8-Bit Pixel Game/lvl4/Hexagonal sigma maze with 20 cells side.png" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,6 +50,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -48,33 +64,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.8-bit Puzzle Game (OLD CODE).executor": "Run",
-    "Python.8-bit Puzzle Game(NEW CODE).executor": "Run",
-    "Python.8-bit Puzzle Game.executor": "Run",
-    "Python.Ping Pong.executor": "Run",
-    "Python.Pyglet Ping Pong.executor": "Run",
-    "Python.lvl1.executor": "Run",
-    "Python.lvl4.executor": "Run",
-    "Python.lvl5.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.pygame temp.executor": "Run",
-    "Python.pylet temp.executor": "Run",
-    "Python.rock_paper_scissors_simulator.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/PycharmProjects/PygameProjects",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.8-bit Puzzle Game (OLD CODE).executor&quot;: &quot;Run&quot;,
+    &quot;Python.8-bit Puzzle Game(NEW CODE).executor&quot;: &quot;Run&quot;,
+    &quot;Python.8-bit Puzzle Game.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ping Pong.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Pygame Ping Pong.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Pyglet Ping Pong.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Temp gravity simulator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lvl1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lvl2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lvl4.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lvl5.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pygame temp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pyglet_ping_pong.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pylet temp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.rock_paper_scissors_simulator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.temp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/PycharmProjects/PygameProjects&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\PycharmProjects\PygameProjects\Programs" />
       <recent name="C:\PycharmProjects\PygameProjects\Programs\Ping Pong" />
+      <recent name="C:\PycharmProjects\PygameProjects\Programs" />
       <recent name="C:\PycharmProjects\PygameProjects\Programs\8-bit Puzzle Game\Levels" />
       <recent name="C:\PycharmProjects\PygameProjects\Programs\8-bit Puzzle Game" />
       <recent name="C:\PycharmProjects\PygameProjects\assets\graphics\Ping Pong" />
@@ -88,7 +109,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-50da183f06c8-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13135.95" />
+        <option value="bundled-python-sdk-5a2391486177-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13763.11" />
       </set>
     </attachedChunks>
   </component>
@@ -125,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705957166127</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added Ping-Pong and Made File directories simpler to understand">
+      <option name="closed" value="true" />
+      <created>1705957362501</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705957362501</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
