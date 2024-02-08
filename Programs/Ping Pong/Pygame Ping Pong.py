@@ -14,7 +14,7 @@ pg.init()
 paddle1 = pg.rect.Rect(10, 215, 10, 70)
 paddle2 = pg.rect.Rect(980, 215, 10, 70)
 
-ball = pg.transform.scale(pg.image.load('../assets/graphics/Ping Pong/ping_pong_ball_trimmed.png').convert_alpha(), (30, 30))
+ball = pg.transform.scale(pg.image.load('../../assets/graphics/Ping Pong/ping_pong_ball_trimmed.png').convert_alpha(), (30, 30))
 
 
 text_font = pg.font.SysFont("Joker", 50)
