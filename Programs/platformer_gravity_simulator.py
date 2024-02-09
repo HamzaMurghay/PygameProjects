@@ -68,9 +68,9 @@ def handle_platform_collisions(plat):
     global character_y, character_x, character_ground_level, to_jump, platform_currently_under
 
     if plat.y - character_size_y < character_y < plat.y + plat.height:  # For ensuring that character sides don't clip
-        if character_x + 35 == plat.x + 5:                              # through platform
+        if character_x + 35 == plat.x:                                  # through platforms
             character_x -= 5
-        elif character_x == plat.x + plat.width - 5:
+        elif character_x == plat.x + plat.width:
             character_x += 5
 
     if plat.x - character_size_x < character_x < plat.x + plat.width:  # For landing on platform tops & to hit your head
