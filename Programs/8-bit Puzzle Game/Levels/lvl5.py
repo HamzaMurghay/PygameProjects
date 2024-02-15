@@ -3,7 +3,7 @@ import random
 
 # Setting up Pygame Base Objects -------------------------------------------------------------------------------
 
-screen = pg.display.set_mode((600, 600))
+screen = pg.display.set_mode((1920, 1080))
 pg.display.set_icon(pg.image.load('../../../assets/graphics/8-Bit Pixel Game/main_code/back_arrow.png'))  # Change this
 clock = pg.time.Clock()
 
@@ -27,7 +27,7 @@ change_mouse = False
 
 def display_light_grid(light_list):
     light_grid = [light_state[light] for light in light_list]
-    light_grid_positions = [(55+current_column_y*140, 30+current_row_x*140) for current_row_x in range(4) for current_column_y in range(4)]
+    light_grid_positions = [(610+current_column_y*213, 180+current_row_x*213) for current_row_x in range(4) for current_column_y in range(4)]
 
     screen.blits(
         [(surface, position) for surface, position in zip(light_grid, light_grid_positions)]
@@ -43,7 +43,7 @@ def check_for_cursor_hover_and_click(click_event):
     for row_no in range(4):
         for column_no in range(4):
 
-            if pg.Rect(55+(row_no*140), 30+(column_no*140), 60, 80).collidepoint(pg.mouse.get_pos()):
+            if pg.Rect(610+(row_no*213), 180+(column_no*213), 60, 80).collidepoint(pg.mouse.get_pos()):
                 pg.mouse.set_visible(False)
                 if click_event.type == pg.MOUSEBUTTONUP:
                     change_light_list(row_no + column_no * 4)  # Getting the current list element address using only its row and column number by use of the formula current_row_number * size of grid + current_column_number
@@ -101,8 +101,13 @@ while True:
     screen.fill('purple')
     display_light_grid(lights)
 
+    mouse_pos = pg.mouse.get_pos()
+
     if change_mouse:
-        screen.blit(click_cursor, (pg.mouse.get_pos()[0] - 15, pg.mouse.get_pos()[1]))
+        screen.blit(click_cursor, (mouse_pos[0] - 15, mouse_pos[1]))
+
+    screen.blit(light_on, (0, 0))
+    print(mouse_pos)
 
     pg.display.update()
     clock.tick(60)

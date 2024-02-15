@@ -79,16 +79,14 @@ def handle_key_input():
         maze_blit_position[0] -= 5
         char_anim_state = 1
 
-        if maze_mask.overlap(character_mask, (957 - maze_blit_position[0], 537 - maze_blit_position[1])) or \
-                maze_blit_position[0] <= -2240:  # Checks if player collides with maze or goes out of bounds
+        if maze_mask.overlap(character_mask, (957 - maze_blit_position[0], 537 - maze_blit_position[1])) or maze_blit_position[0] <= -2240:  # Checks if player collides with maze or goes out of bounds
             maze_blit_position[0] += 5
 
     if keys[pg.K_a] or keys[pg.K_LEFT]:
         maze_blit_position[0] += 5
         char_anim_state = 2
 
-        if maze_mask.overlap(character_mask, (957 - maze_blit_position[0], 537 - maze_blit_position[1])) or \
-                maze_blit_position[0] >= 970:  # Checks if player collides with maze or goes out of bounds
+        if maze_mask.overlap(character_mask, (957 - maze_blit_position[0], 537 - maze_blit_position[1])) or maze_blit_position[0] >= 970:  # Checks if player collides with maze or goes out of bounds
             maze_blit_position[0] -= 5
 
     if not any(keys):
