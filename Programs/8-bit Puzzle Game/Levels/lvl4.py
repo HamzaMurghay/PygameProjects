@@ -39,6 +39,8 @@ magenta_key_sprite_sheet = pg.image.load(
 
 key_mask = pg.mask.from_surface(yellow_key)  # Using the same mask to detect all keys cuz they have identical hit-boxes
 
+fade = pg.Surface((1920, 1080)).convert()
+
 # Setting up Game Variables ------------------------------------------------------------------------------------
 
 maze_blit_position = [-640, 575]
@@ -52,6 +54,8 @@ char_anim_frame = 0
 
 key_anim_frame = 0
 reverse_anim = False
+
+fade_opacity = 0
 
 # Defining Functions -------------------------------------------------------------------------------------------
 
@@ -99,23 +103,45 @@ def check_for_player_events():  # Events refer to either finding of keys or reac
     if key_mask.overlap(character_mask, (957 - maze_blit_position[0] - 2727, 537 - maze_blit_position[1] - 581)):
         keys_obtained[0] = 1
 
-    if key_mask.overlap(character_mask, (957 - maze_blit_position[0] - 775, 537 - maze_blit_position[1] - 1796)):
+    elif key_mask.overlap(character_mask, (957 - maze_blit_position[0] - 775, 537 - maze_blit_position[1] - 1796)):
         keys_obtained[1] = 1
 
-    if key_mask.overlap(character_mask, (957 - maze_blit_position[0] - 1590, 537 - maze_blit_position[1] - 1560)):
+    elif key_mask.overlap(character_mask, (957 - maze_blit_position[0] - 1590, 537 - maze_blit_position[1] - 1560)):
         keys_obtained[2] = 1
 
-    if -2620 < maze_blit_position[1] <= -2585:
+    elif -2620 < maze_blit_position[1] <= -2585:
         if all(keys_obtained):
             print("Level Cleared!")
         else:
             print("You need all three keys to unlock this door")
 
-    if -220 <= maze_blit_position[0] <= -200 and -770 <= maze_blit_position[1] <= -730:
+    elif -220 <= maze_blit_position[0] <= -200 and -770 <= maze_blit_position[1] <= -730:
         maze_blit_position[0] -= 5
 
-    if -2200 >= maze_blit_position[0] and -1495 <= maze_blit_position[1] <= -1455:
+    elif -2200 >= maze_blit_position[0] and -1495 <= maze_blit_position[1] <= -1455:
         maze_blit_position[0] += 5
+
+
+def animate_game_elements():
+    global key_anim_frame, last_anim_update, reverse_anim, char_anim_state, char_anim_frame
+
+    if pg.time.get_ticks() - last_anim_update >= 145:
+
+        if key_anim_frame < 3 and not reverse_anim:  # Key Animation
+            key_anim_frame += 1
+        elif key_anim_frame != 0:
+            reverse_anim = True
+            key_anim_frame -= 1
+        else:
+            key_anim_frame = 1
+            reverse_anim = False
+        last_anim_update = pg.time.get_ticks()
+
+        if char_anim_state != -1:  # Character Animation
+            if char_anim_frame > 2:
+                char_anim_frame = 0
+            else:
+                char_anim_frame += 1
 
 
 def draw_game_elements():
@@ -145,26 +171,21 @@ def draw_game_elements():
                     (0, 41 * key_anim_frame, 33, 41))
 
 
-def animate_game_elements():
-    global key_anim_frame, last_anim_update, reverse_anim, char_anim_state, char_anim_frame
+def fade_out():
+    for transparency in range(0, 256//6):
+        fade.set_alpha(transparency)
+        screen.blit(fade, (0, 0))
+        pg.display.update()
+        pg.time.delay(15)
 
-    if pg.time.get_ticks() - last_anim_update >= 145:
 
-        if key_anim_frame < 3 and not reverse_anim:  # Key Animation
-            key_anim_frame += 1
-        elif key_anim_frame != 0:
-            reverse_anim = True
-            key_anim_frame -= 1
-        else:
-            key_anim_frame = 1
-            reverse_anim = False
-        last_anim_update = pg.time.get_ticks()
-
-        if char_anim_state != -1:  # Character Animation
-            if char_anim_frame > 2:
-                char_anim_frame = 0
-            else:
-                char_anim_frame += 1
+def fade_in():
+    for transparency in range(255, 0, -6):
+        draw_game_elements()
+        fade.set_alpha(transparency)
+        screen.blit(fade, (0, 0))
+        pg.display.update()
+        pg.time.delay(15)
 
 
 # Main Loop ----------------------------------------------------------------------------------------------------
@@ -183,3 +204,4 @@ while True:
 
     pg.display.update()
     clock.tick(60)
+

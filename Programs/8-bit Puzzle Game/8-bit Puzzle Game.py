@@ -2,7 +2,7 @@ import pygame as pg
 
 # Setting up Basic Pygame Pre-requisites -----------------------------------------------------------------------
 
-screen = pg.display.set_mode((600, 600))
+screen = pg.display.set_mode((1920, 1080))
 pg.display.set_caption("8-bit Puzzle Game")
 # pg.display.set_icon()  # Implement this feature later
 # pg.display.set_allow_screensaver()  # Implement this feature later
@@ -17,16 +17,20 @@ textbox_font = pg.font.Font("../../assets/fonts/garet/Garet-Book.ttf", 16)
 namebar_font_big = pg.font.Font("../../assets/fonts/garet/Garet-Heavy.ttf", 18)
 namebar_font_small = pg.font.Font('../../assets/fonts/garet/Garet-Heavy.ttf', 12)
 
-
 level_description_title_font = pg.font.Font('../../assets/fonts/garet/Garet-Heavy.ttf', 34)
 level_description_body_font = pg.font.Font('../../assets/fonts/garet/Garet-Book.ttf', 24)
 
 # Importing Game Images and other elements ---------------------------------------------------------------------
 
-cave_backg = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/cave background.png').convert_alpha()
-cave_backg_faded = pg.image.load(
-    '../../assets/graphics/8-Bit Pixel Game/main_code/cave background_faded.png').convert_alpha()
+cave_backg = pg.transform.scale(pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/cave background.png').convert_alpha(), (1642, 925))
+
+cave_backg_faded = pg.transform.scale(pg.image.load(
+    '../../assets/graphics/8-Bit Pixel Game/main_code/cave background_faded.png').convert_alpha(), (1642, 925))
+
+
 textbox = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/textbox_trimmed.png').convert_alpha()
+
 
 ee_happy = pg.image.load(
     '../../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_happy_trimmed.jpg.png').convert_alpha()
@@ -37,27 +41,35 @@ ee_shocked2 = pg.image.load(
 ee_angry = pg.image.load(
     '../../assets/graphics/8-Bit Pixel Game/main_code/expert_explorer_angry_trimmed.png').convert_alpha()
 
+
 level_select_menu = pg.image.load(
     '../../assets/graphics/8-Bit Pixel Game/main_code/level select menu.png').convert_alpha()
+
 level_description_backg = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/level_description.png')
+
 
 level_lock_chains = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/chains_trimmed.png').convert_alpha()
 level_lock_chains_inverted = pg.image.load(
     '../../assets/graphics/8-Bit Pixel Game/main_code/chains_inv_trimmed.png').convert_alpha()
+
+
 level_start_button = pg.image.load(
     '../../assets/graphics/8-Bit Pixel Game/main_code/start_button_trimmed.png').convert_alpha()
-level_start_button_rect = level_start_button.get_rect(topleft=(233, 360))
+level_start_button_rect = level_start_button.get_rect(topleft=(890, 650))
+
 
 back_button = pg.image.load('../../assets/graphics/8-Bit Pixel Game/main_code/back_arrow.png').convert_alpha()
-back_button_rect = back_button.get_rect(topleft=(140, 134))
+back_button_rect = back_button.get_rect(topleft=(797, 412))
+
 
 chain_sound = pg.mixer.Sound('../../assets/sounds/8-Bit Pixel Game/metal_chain_sound.mp3')
+
 
 click_cursor = pg.image.load(
     '../../assets/graphics/8-Bit Pixel Game/main_code/Pointing_hand_cursor.svg.png').convert_alpha()
 change_mouse = False
 
-# Setting up Textbox Text and Related Variables ----------------------------------------------------------------
+# Setting up Textbox-Text & Related Variables ------------------------------------------------------------------
 
 empty_line = textbox_font.render("", True, 'black')
 text_lines = [empty_line]  # This list stores the surfaces of text lines needed in textbox,a for loop will blit them all
@@ -75,14 +87,14 @@ caret_position = 0
 # Defining Textbox Related Functions ---------------------------------------------------------------------------
 
 
-def write_in_textbox(string: str):  # This function writes in the area of the textbox in typewriter style
+def write_in_textbox(string: str):  # This function writes in the area of the textbox in typewriter style (doesn't blit)
     global current_letter_idx, text_lines, running_text, lines_done, caret_position, current_line_rect, print_is_ongoing
 
     if current_letter_idx < len(string) and print_is_ongoing:
 
         caret_position = current_line_rect.right
 
-        if caret_position > 485 and running_text[len(running_text) - 1] == ' ':
+        if caret_position > 988 and running_text[len(running_text) - 1] == ' ':
             lines_done += 1
             running_text = " "
             running_text += string[current_letter_idx]
@@ -112,13 +124,11 @@ def go_to_next_dialogue():  # Clears list text_lines and resets variables in ord
     dialogue_index += 1
     print_is_ongoing = True
 
-    return 0
-
 
 # Defining Sprite "Animation" Function -------------------------------------------------------------------------
 
 switch_sprite_counter = -1
-popup_animation_y_value = 370
+popup_animation_y_value = 700
 
 
 def chose_ee_sprite():  # Chooses the appropriate ee(expert explorer) sprite to be displayed based on current dialogue
@@ -128,24 +138,24 @@ def chose_ee_sprite():  # Chooses the appropriate ee(expert explorer) sprite to 
 
     if dialogue_index == 0:
 
-        if popup_animation_y_value >= 298 and not reached_max_height:
+        if popup_animation_y_value >= 628 and not reached_max_height:
             popup_animation_y_value -= 2
-        elif popup_animation_y_value <= 300 and reached_max_height:
+        elif popup_animation_y_value <= 630 and reached_max_height:
             popup_animation_y_value += 2
         else:
             reached_max_height = True
 
-        return ee_happy, (0, int(popup_animation_y_value))
+        return ee_happy, (460, int(popup_animation_y_value))
 
     elif dialogue_index == 1:
         namebar_text = namebar_font_small.render("Best Explorer", True, 'White')
         namebar_text2 = namebar_font_small.render("(Apparently)", True, 'White')
 
         if switch_sprite_counter < 52: switch_sprite_counter += 1  # These two lines facilitate the shocked animation
-        return (ee_shocked2, (-35, 280)) if switch_sprite_counter % 10 == 0 else (ee_shocked1, (-35, 280))
+        return (ee_shocked2, (460, 610)) if switch_sprite_counter % 10 == 0 else (ee_shocked1, (460, 610))
 
     else:
-        return ee_angry, (50, 270)
+        return ee_angry, (520, 595)
 
 
 # Defining Level Menu Related Functions ------------------------------------------------------------------------
@@ -163,15 +173,15 @@ def show_level_status(level):
         if (pg.time.get_ticks() - time_since_clicked) < 10: go_to_next_dialogue()  # This ensures that repeatedly clicking different locked levels doesn't glitch out the textbox
 
         write_in_textbox("This level is locked, complete the previous levels to unlock it.")
-        screen.blit(text_lines[0], (current_line_rect.topleft[0] + 30, current_line_rect.topleft[1]))
+        screen.blit(text_lines[0], (700, 300))
 
 
 def display_level_description_background():
     screen.fill('#1c1730')
     screen.blit(cave_backg_faded, (0, 0))
-    pg.draw.rect(screen, "Black", pg.Rect(106, 71, 383, 383), 8, 2)
+    pg.draw.rect(screen, "Black", pg.Rect(761, 351, 383, 383), 8, 2)
 
-    screen.blit(level_description_backg, (110, 75))
+    screen.blit(level_description_backg, (765, 355))
     screen.blit(back_button, back_button_rect)
     screen.blit(level_start_button, level_start_button_rect)
 
@@ -198,37 +208,37 @@ personal_thoughts = ["(Okayyyyy, that was...interesting. Anyway,so let's think: 
 
 level_descriptions = (
     (
-        (level_description_title_font.render("LEVEL 1", True, 'gold'), (232, 173)),
-        (level_description_body_font.render("Objectives -", True, "white"), (150, 255)),
-        (level_description_body_font.render("> Explore the cave to find", True, "white"), (150, 295)),
-        (level_description_body_font.render("any usable resources.", True, "white"), (171, 315))
+        (level_description_title_font.render("LEVEL 1", True, 'gold'), (887, 453)),
+        (level_description_body_font.render("Objectives -", True, "white"), (800, 540)),
+        (level_description_body_font.render("> Explore the cave to find", True, "white"), (800, 580)),
+        (level_description_body_font.render("any usable resources.", True, "white"), (820, 600))
     ),
 )
 
 # Main Loop Variable Declarations ------------------------------------------------------------------------------
 
 dialogue_index = 0
-intro_done = personal_thoughts_done = False
+intro_done = personal_thoughts_done = True
 
-show_level_select_menu = False
+show_level_select_menu = True
 show_specific_level_description = False
 
 levels_completed = 0
 
 # This list has the coordinates of where the chains for locked levels need to be placed
-locked_levels_chains = [[(260, 256), (248, 260)], [(375, 256), (365, 260)],
-                        [(200, 350), (189, 353)], [(318, 350), (306, 353)]]
+locked_levels_chains = [[(913, 536), (903, 539)], [(1030, 536), (1020, 539)],
+                        [(855, 630), (844, 633)], [(972, 630), (961, 633)]]
 
 # These are the hit boxes for the levels that transform your cursor when you hover over it and detect when you click it
-l1_circle = pg.draw.circle(screen, "black", (187, 293), 41)
-l2_circle = pg.draw.circle(screen, "black", (292, 293), 42)
-l3_circle = pg.draw.circle(screen, "black", (410, 293), 41)
-l4_circle = pg.draw.circle(screen, "black", (233, 385), 42)
-l5_circle = pg.draw.circle(screen, "black", (350, 385), 42)
+l1_circle = pg.draw.circle(screen, "black", (842, 572), 41)
+l2_circle = pg.draw.circle(screen, "black", (947, 572), 41)
+l3_circle = pg.draw.circle(screen, "black", (1064, 572), 41)
+l4_circle = pg.draw.circle(screen, "black", (888, 665), 41)
+l5_circle = pg.draw.circle(screen, "black", (1005, 665), 41)
 
 cursor_collision = [l1_circle, l2_circle, l3_circle, l4_circle, l5_circle, back_button_rect, level_start_button_rect]  # This list contains the elements to check if the cursor collides with and thus change the cursor to a click cursor along with the boolean values of whether they are on screen or not
 
-give_level_status_of = 0  # Says which level to show status of, 0 if no level was clicked by user in level select menu
+give_status_of_level = 0  # Says which level to show status of, 0 if no level was clicked by user in level select menu
 time_since_clicked = 0
 
 # Main Loop ----------------------------------------------------------------------------------------------------
@@ -264,7 +274,7 @@ while True:
                 change_mouse = True
 
                 if event.type == pg.MOUSEBUTTONUP:
-                    give_level_status_of = current_index + 1  # +1 is only for reader to understand which level is being asked for, during execution +1 is nullified
+                    give_status_of_level = current_index + 1  # +1 is only for code reader to understand which level is being asked for, during execution +1 is nullified
 
                     if levels_completed >= current_index:
                         show_level_select_menu = False
@@ -281,7 +291,7 @@ while True:
                 if current_index == 5 and event.type == pg.MOUSEBUTTONUP:
                     show_specific_level_description = False
                     show_level_select_menu = True
-                    give_level_status_of = 0
+                    give_status_of_level = 0
                 else:
                     pass
                 break
@@ -289,7 +299,6 @@ while True:
             pg.mouse.set_visible(True)
             change_mouse = False
 
-    screen.fill((71, 59, 123))
     screen.blit(cave_backg, (0, 0))
 
     if not intro_done:
@@ -297,57 +306,51 @@ while True:
         write_in_textbox(intro_dialogue[dialogue_index])
 
         screen.blit(chose_ee_sprite()[0], chose_ee_sprite()[1])
-        screen.blit(textbox, (-282, 240))
+        screen.blit(textbox, (200, 560))
 
         if dialogue_index == 0:
-            screen.blit(namebar_text, (67, 454))
+            screen.blit(namebar_text, (550, 775))
 
         else:
-            screen.blit(namebar_text, (55, 453))
-            screen.blit(namebar_text2, (56, 465))
+            screen.blit(namebar_text, (540, 771))
+            screen.blit(namebar_text2, (540, 785))
 
         for line in text_lines:
             line_in_list = text_lines.index(line)
-            current_line_rect = text_lines[line_in_list].get_rect(topleft=(15, (500 + line_in_list * 18)))
+            current_line_rect = text_lines[line_in_list].get_rect(topleft=(510, (810 + line_in_list * 18)))
             screen.blit(text_lines[text_lines.index(line)], current_line_rect)
 
     elif not personal_thoughts_done:
         namebar_text = namebar_font_big.render("You", True, 'White')
         write_in_textbox(personal_thoughts[dialogue_index])
 
-        screen.blit(textbox, (-282, 240))
-        screen.blit(namebar_text, (78, 454))
+        screen.blit(textbox, (200, 560))
+        screen.blit(namebar_text, (562, 774))
 
         for line in text_lines:
             line_in_list = text_lines.index(line)
-            current_line_rect = text_lines[line_in_list].get_rect(topleft=(15, (500 + line_in_list * 18)))
+            current_line_rect = text_lines[line_in_list].get_rect(topleft=(510, (810 + line_in_list * 18)))
             screen.blit(text_lines[text_lines.index(line)], current_line_rect)
 
     elif show_level_select_menu:
-        screen.fill('#1c1730')
         screen.blit(cave_backg_faded, (0, 0))
-        pg.draw.rect(screen, "Black", pg.Rect(106, 71, 383, 383), 8, 2)
-        screen.blit(level_select_menu, (110, 75))
+        pg.draw.rect(screen, "Black", pg.Rect(761, 351, 383, 383), 8, 2)
+        screen.blit(level_select_menu, (765, 355))
 
         for chain1_coord, chain2_coord in locked_levels_chains:  # Renders the locked level chains on each locked level
             screen.blit(level_lock_chains_inverted, chain1_coord)
             screen.blit(level_lock_chains, chain2_coord)
 
-        show_level_status(give_level_status_of)
-        if running_text == " " and pg.time.get_ticks() - time_since_clicked > 2800: give_level_status_of = go_to_next_dialogue()
+        show_level_status(give_status_of_level)
+        if running_text == " " and pg.time.get_ticks() - time_since_clicked > 2800:
+            go_to_next_dialogue()
+            give_status_of_level = 0
 
     elif show_specific_level_description:
         display_level_description_background()
-        show_level_status(give_level_status_of)
+        show_level_status(give_status_of_level)
 
     if change_mouse: screen.blit(click_cursor, (mouse_pos[0] - 15, mouse_pos[1]))
 
     pg.display.update()
     clock.tick(60)
-
-# Pro-tip: be careful when copying and pasting code, you may by mistake copy that function with the wrong parameters
-# and then forget to change them, this happened to me in rps program and was a huge reason why my avoiding algorithm
-# wasn't working at the start, so note: if the program isn't working how it's supposed to, but there are no errors or
-# any other code function that's wrong, check the arguments put in
-# wasn't working at the start and remained unfixed for at-least 1.5 months, so note: if the program isn't working how
-# it's supposed to, but there are no errors or any other code function that's wrong, check the arguments put in
