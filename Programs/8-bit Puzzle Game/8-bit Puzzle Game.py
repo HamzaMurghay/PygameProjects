@@ -218,9 +218,9 @@ level_descriptions = (
 # Main Loop Variable Declarations ------------------------------------------------------------------------------
 
 dialogue_index = 0
-intro_done = personal_thoughts_done = True
+intro_done = personal_thoughts_done = False
 
-show_level_select_menu = True
+show_level_select_menu = False
 show_specific_level_description = False
 
 levels_completed = 0
@@ -350,7 +350,16 @@ while True:
         display_level_description_background()
         show_level_status(give_status_of_level)
 
-    if change_mouse: screen.blit(click_cursor, (mouse_pos[0] - 15, mouse_pos[1]))
+    if change_mouse: screen.blit(click_cursor, (mouse_pos[0] - 15, mouse_pos[1] - 2))
 
     pg.display.update()
     clock.tick(60)
+
+# Pro-tip: be careful when copying and pasting code, you may by mistake copy that function with the wrong parameters
+# and then forget to change them, this happened to me in rps program and was a huge reason why my avoiding algorithm
+# wasn't working at the start, so note: if the program isn't working how it's supposed to, but there are no errors or
+# any other code function that's wrong, check the arguments put in
+# wasn't working at the start and remained unfixed for at-least 1.5 months, so note: if the program isn't working how
+# it's supposed to, but there are no errors or any other code function that's wrong, check the arguments put in
+
+# screen.fill((71, 59, 123))

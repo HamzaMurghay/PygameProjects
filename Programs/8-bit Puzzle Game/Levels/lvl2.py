@@ -10,6 +10,12 @@ pg.init()
 light_source = pg.draw.circle(screen, 'white', (50, 50), 30)
 mirror1 = pg.image.load('../../../assets/graphics/8-Bit Pixel Game/lvl1/line_mirror.png').convert_alpha()
 # s, t = mirror1.get_rect(topleft=(500, 300)).left, mirror1.get_rect(topleft=(500, 300)).top
+
+click_cursor = pg.image.load(
+            '../../../assets/graphics/8-Bit Pixel Game/main_code/Pointing_hand_cursor.svg.png').convert_alpha()
+change_mouse = False
+
+mirror1_rect = mirror1.get_rect(topleft=(500, 300))
 centerx = mirror1.get_rect(topleft=(500, 300)).centerx
 centery = mirror1.get_rect(topleft=(500, 300)).centery
 radius = centery - 300
@@ -18,17 +24,17 @@ x = centerx + (radius*sin(-90*pi/180))
 y = centery + (radius*cos(-90*pi/180))
 
 
-mirror1_rotated = pg.transform.rotate(mirror1, 80)
-mirror1_rotated_rect = mirror1_rotated.get_rect(center=mirror1.get_rect(topleft=(500, 300)).center)
+# mirror1_rotated = pg.transform.rotate(mirror1, 80)
+# mirror1_rotated_rect = mirror1_rotated.get_rect(center=mirror1.get_rect(topleft=(500, 300)).center)
 
 # circle = pg.draw.circle(screen, 'yellow', (504, 364), 64, 1)
-pg.draw.rect(screen, 'pink', mirror1_rotated_rect)
-screen.blit(mirror1, (500, 300))
-screen.blit(mirror1_rotated, mirror1_rotated_rect)
+# pg.draw.rect(screen, 'pink', mirror1_rotated_rect)
+screen.blit(mirror1, mirror1_rect)
+# screen.blit(mirror1_rotated, mirror1_rotated_rect)
 
 # pg.draw.arc(screen, 'yellow', (440, 300, 120, 120), pi, 3*pi/2)
 
-pg.draw.line(screen, 'yellow', (500, 300), (x, y))
+# pg.draw.line(screen, 'yellow', (500, 300), (x, y))
 
 # def create_mirror(start_posit, end_posit):
 #     mirror = pg.draw.line(screen, 'white', start_posit, end_posit, 1)
@@ -47,6 +53,7 @@ pg.draw.line(screen, 'yellow', (500, 300), (x, y))
 # print(circle)
 
 while True:
+    screen.fill('grey')
     for event in pg.event.get():
         if event.type == pg.QUIT:
             pg.quit()
@@ -54,7 +61,22 @@ while True:
 
         if event.type == pg.MOUSEBUTTONDOWN:
             ray = pg.draw.line(screen, 'yellow', light_source.center, pg.mouse.get_pos())
-            if ray.colliderect(mirror1_rotated_rect):
-                print('collide')
+            # if ray.colliderect(mirror1_rotated_rect):
+            #     print('collide')
+
+    light_source = pg.draw.circle(screen, 'white', (50, 50), 30)
+    screen.blit(mirror1, mirror1_rect)
+
+    mouse_pos = pg.mouse.get_pos()
+
+    if mirror1_rect.collidepoint(mouse_pos):
+        pg.mouse.set_visible(False)
+        change_mouse = True
+    else:
+        change_mouse = False
+        pg.mouse.set_visible(True)
+
+    if change_mouse:
+        screen.blit(click_cursor, (mouse_pos[0] - 15, mouse_pos[1] - 2))
 
     pg.display.update()

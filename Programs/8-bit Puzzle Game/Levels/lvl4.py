@@ -96,6 +96,15 @@ def handle_key_input():
     if not any(keys):
         char_anim_state = -1
 
+    if keys[pg.K_RETURN]:
+        print(f"Current Position: {maze_blit_position}")
+        maze_blit_position[0], maze_blit_position[1] = map(int, input("Enter Teleport Co-ordinates: ").split())
+
+    if keys[pg.K_SPACE]:
+        fade_out()
+        pg.time.delay(200)
+        fade_in()
+
 
 def check_for_player_events():  # Events refer to either finding of keys or reaching special areas within the maze
 
@@ -172,7 +181,7 @@ def draw_game_elements():
 
 
 def fade_out():
-    for transparency in range(0, 256//6):
+    for transparency in range(0, 256, 6):
         fade.set_alpha(transparency)
         screen.blit(fade, (0, 0))
         pg.display.update()
@@ -205,3 +214,7 @@ while True:
     pg.display.update()
     clock.tick(60)
 
+# TP to Cyan Key: -1850 -100
+# TP to Magenta Key: 250 -1230
+# TP to Yellow Key: -640 -1000
+# TP to Exit: -640 -2565
